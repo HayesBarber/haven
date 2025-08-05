@@ -122,6 +122,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  home_api_client:
+    dependency: "direct main"
+    description:
+      path: home_api_client
+      relative: true
+    source: path
+    version: "1.0.0"
   http_parser:
     dependency: transitive
     description:

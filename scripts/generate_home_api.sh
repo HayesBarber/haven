@@ -5,12 +5,12 @@ set -e
 source .env
 
 openapi-generator generate \
-  -i "$GATEKEEPER_OPENAPI_SPEC_PATH" \
+  -i "$HOME_API_OPENAPI_SPEC_PATH" \
   -g dart-dio \
-  -o gatekeeper_client \
-  --additional-properties=pubName=gatekeeper_client
+  -o home_api_client \
+  --additional-properties=pubName=home_api_client 
 
-cd gatekeeper_client
+cd home_api_client
 
 dart pub get
 
