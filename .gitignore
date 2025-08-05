@@ -1,4 +1,6 @@
 .DS_Store
+gatekeeper_client
+.env
 # Miscellaneous
 *.class
 *.log

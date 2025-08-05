@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  gatekeeper_client:
+    path: ./gatekeeper_client
 
 dev_dependencies:
   flutter_test:
