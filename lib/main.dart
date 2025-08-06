@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const Application());
 }
 
