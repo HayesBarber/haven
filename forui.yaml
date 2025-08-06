@@ -1,0 +1,4 @@
+cli:
+  snippet-output: lib
+  style-output: lib/theme
+  theme-output: lib/theme/theme.dart

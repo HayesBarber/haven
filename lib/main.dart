@@ -1,21 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 
 void main() {
-  runApp(const HavenApp());
+  runApp(const Application());
 }
 
-class HavenApp extends StatelessWidget {
-  const HavenApp({super.key});
+class Application extends StatelessWidget {
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = FThemes.rose.dark;
+
     return MaterialApp(
-      title: 'Haven',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(body: Center(child: Text('Hello, world!'))),
+      supportedLocales: FLocalizations.supportedLocales,
+      localizationsDelegates: const [...FLocalizations.localizationsDelegates],
+      builder: (_, child) => FTheme(data: theme, child: child!),
+      theme: theme.toApproximateMaterialTheme(),
+      home: const FScaffold(child: Example()),
     );
   }
+}
+
+class Example extends StatefulWidget {
+  const Example({super.key});
+
+  @override
+  State<Example> createState() => _ExampleState();
+}
+
+class _ExampleState extends State<Example> {
+  int _count = 0;
+
+  @override
+  Widget build(BuildContext context) => Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 10,
+      children: [
+        Text('Count: $_count'),
+        FButton(
+          onPress: () => setState(() => _count++),
+          suffix: const Icon(FIcons.chevronsUp),
+          child: const Text('Increase'),
+        ),
+      ],
+    ),
+  );
 }
