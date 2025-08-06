@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:curveauth_dart/curveauth_dart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:haven/services/local_storage.dart';
 import 'package:haven/utils/result.dart';
@@ -11,9 +13,11 @@ class CreateUserService {
         interceptors: [],
       ).getUsersApi();
 
+      final keyPair = ECCKeyPair.generate();
+
       final req = CreateUserRequestBuilder()
         ..name = username
-        ..publicKey = "";
+        ..publicKey = keyPair.exportPublicKeyRawBase64();
 
       final response = await api.createUserUsersPost(
         createUserRequest: req.build(),
@@ -26,6 +30,8 @@ class CreateUserService {
       }
 
       await LocalStorage.I.write('username', username);
+      final json = jsonEncode(keyPair.toJson());
+      await LocalStorage.I.write('keypair', json);
 
       return const Success(null);
     } catch (e) {
