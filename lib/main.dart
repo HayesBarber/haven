@@ -13,6 +13,7 @@ class Application extends StatelessWidget {
     final theme = FThemes.rose.dark;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       supportedLocales: FLocalizations.supportedLocales,
       localizationsDelegates: const [...FLocalizations.localizationsDelegates],
       builder: (_, child) => FTheme(data: theme, child: child!),
