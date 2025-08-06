@@ -16,7 +16,7 @@ class Splash extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Haven",
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
