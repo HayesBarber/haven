@@ -17,6 +17,7 @@ dependencies:
     path: ./home_api_client
   forui: ^0.14.1
   provider: ^6.1.5
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - .env
