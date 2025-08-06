@@ -29,9 +29,9 @@ class CreateUserService {
         );
       }
 
-      await LocalStorage.I.write('username', username);
+      await LocalStorage.I.write(StorageKey.username, username);
       final json = jsonEncode(keyPair.toJson());
-      await LocalStorage.I.write('keypair', json);
+      await LocalStorage.I.write(StorageKey.keyPair, json);
 
       return const Success(null);
     } catch (e) {
