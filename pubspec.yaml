@@ -16,6 +16,7 @@ dependencies:
   home_api_client:
     path: ./home_api_client
   forui: ^0.14.1
+  provider: ^6.1.5
 
 dev_dependencies:
   flutter_test:
