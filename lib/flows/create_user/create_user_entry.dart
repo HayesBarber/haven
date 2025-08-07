@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 class CreateUserEntry extends StatelessWidget {
   const CreateUserEntry({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CreateUserProvider>(context);
@@ -27,13 +28,21 @@ class CreateUserEntry extends StatelessWidget {
               hint: "Jane Doe",
               description: const Text('Please enter your username.'),
               maxLines: 1,
-              onSubmit: (value) {},
+              controller: provider.controller,
+              onChange: provider.updateUsername,
+              onSubmit: provider.updateUsername,
+              clearable: (value) => value.text.isNotEmpty,
             ),
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
-            child: FButton(onPress: () {}, child: const Text("Next")),
+            child: FButton(
+              onPress: provider.isValid
+                  ? () => provider.onUsernameCreated(provider.username)
+                  : null,
+              child: const Text("Next"),
+            ),
           ),
         ],
       ),
