@@ -26,6 +26,7 @@ class CreateUserEntry extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: FTextField(
               autofocus: true,
+              textCapitalization: TextCapitalization.sentences,
               label: const Text('Username'),
               hint: "Jane Doe",
               description: const Text('Please enter your username.'),
