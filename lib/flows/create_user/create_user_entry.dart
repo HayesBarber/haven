@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:go_router/go_router.dart';
 import 'package:haven/flows/create_user/provider/create_user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,7 @@ class CreateUserEntry extends StatelessWidget {
     final provider = Provider.of<CreateUserProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(leading: BackButton(onPressed: () => context.pop())),
       body: Column(
         children: [
           Center(
