@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateUserProvider extends ChangeNotifier {
   final TextEditingController controller = TextEditingController();
@@ -13,5 +14,7 @@ class CreateUserProvider extends ChangeNotifier {
 
   bool get isValid => _username.trim().isNotEmpty;
 
-  void onUsernameCreated(String username) {}
+  void onUsernameCreated(BuildContext context) {
+    context.push('/new-user/generate-key-pair');
+  }
 }

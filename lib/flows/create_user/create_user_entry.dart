@@ -40,7 +40,7 @@ class CreateUserEntry extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
             child: FButton(
               onPress: provider.isValid
-                  ? () => provider.onUsernameCreated(provider.username)
+                  ? () => provider.onUsernameCreated(context)
                   : null,
               child: const Text("Next"),
             ),
