@@ -174,8 +174,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: refactor
-      resolved-ref: d4ac8c8a228c49a06208f1a16f81ad6d539ff722
+      ref: main
+      resolved-ref: "36c739986908e17f5a0d83fecbd07ff6d16cbffd"
       url: "https://github.com/HayesBarber/flowkit"
     source: git
     version: "0.0.1"

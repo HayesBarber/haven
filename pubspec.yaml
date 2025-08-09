@@ -22,7 +22,7 @@ dependencies:
   flowkit:
     git:
       url: https://github.com/HayesBarber/flowkit
-      ref: refactor
+      ref: main
   curveauth_dart:
     git:
       url: https://github.com/HayesBarber/curveauth-dart
