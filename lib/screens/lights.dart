@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/lighting_provider.dart';
@@ -48,7 +49,15 @@ class Lights extends StatelessWidget {
               horizontal: 32.0,
               vertical: 16.0,
             ),
-            child: Text('Lights', style: context.textTheme.displayMedium),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Text('Lights', style: context.textTheme.displayMedium),
+                ),
+                if (provider.loading) CupertinoActivityIndicator(),
+              ],
+            ),
           ),
           ...groups,
         ],
