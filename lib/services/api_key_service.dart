@@ -10,6 +10,7 @@ import 'package:haven/utils/result.dart';
 
 class ApiKeyService {
   ChallengeVerificationResponse? _apiKey;
+  Future<Result<String, Exception>>? _inProgress;
 
   ApiKeyService._();
   static final ApiKeyService _instance = ApiKeyService._();
@@ -42,6 +43,21 @@ class ApiKeyService {
     final connectTimeoutMs = 5000;
     return _apiKey != null &&
         _apiKey!.expiresAt.millisecondsSinceEpoch > now + connectTimeoutMs;
+  }
+
+  Future<Result<String, Exception>> getApiKey() async {
+    if (_inProgress != null) {
+      LOGGER.log('getApiKey already in progress, returning existing future');
+      return _inProgress!;
+    }
+
+    _inProgress = _getApiKey();
+
+    try {
+      return await _inProgress!;
+    } finally {
+      _inProgress = null;
+    }
   }
 
   Future<Result<String, Exception>> _getApiKey() async {
