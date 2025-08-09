@@ -84,6 +84,26 @@ class ApiKeyService {
         ..clientId = "TODO"
         ..challengeId = challenge.challengeId
         ..signature = signature;
+
+      final verifyResponse = await api.verifyChallengeChallengeVerifyPost(
+        challengeVerificationRequest: verifyReq.build(),
+      );
+
+      if (verifyResponse.statusCode != 200 || verifyResponse.data == null) {
+        throw Exception('Failed to verify challenge');
+      }
+
+      _apiKey = verifyResponse.data!;
+
+      final serialized = serializers.serializeWith(
+        ChallengeVerificationResponse.serializer,
+        _apiKey,
+      );
+      final json = jsonEncode(serialized);
+
+      await LocalStorage.I.write(StorageKey.apiKey, json);
+
+      return Success(_apiKey!.apiKey);
     } catch (e) {
       return Failure(Exception('Failed to get API key: $e'));
     }
