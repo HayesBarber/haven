@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:haven/services/lighting_service.dart';
 import 'package:haven/utils/extensions.dart';
@@ -32,7 +33,11 @@ class LightingProvider extends ChangeNotifier {
           final room = device.room ?? Room.livingRoom;
           groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
         }
-        _roomsMap = groupedRooms;
+        final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
+          groupedRooms.entries.toList()
+            ..sort((a, b) => a.key.name.compareTo(b.key.name)),
+        );
+        _roomsMap = sortedRooms;
       case Failure():
         _hasError = true;
     }
