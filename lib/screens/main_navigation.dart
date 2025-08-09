@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/providers/nav_bar_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +8,10 @@ class MainNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => NavBarProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => NavBarProvider()),
+        ChangeNotifierProvider(create: (_) => LightingProvider()),
+      ],
       child: PageStack(),
     );
   }
