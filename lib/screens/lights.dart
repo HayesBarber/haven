@@ -29,6 +29,7 @@ class Lights extends StatelessWidget {
                   ? context.colorScheme.primary
                   : context.colorScheme.secondary,
             ),
+            onPress: () => provider.toggleDevice(config),
           ),
         );
       }

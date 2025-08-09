@@ -45,4 +45,33 @@ class LightingProvider extends ChangeNotifier {
     _loading = false;
     notifyListeners();
   }
+
+  void toggleDevice(DeviceConfig device) async {
+    final action = device.powerState == PowerState.on_
+        ? PowerAction.off
+        : PowerAction.on_;
+
+    final result = await LightingService.I.controlDevice(device, action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        final updatedNames = updatedDevices.map((d) => d.name).toSet();
+        _deviceConfigs = [
+          ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
+          ...updatedDevices,
+        ];
+        final Map<Room, List<DeviceConfig>> groupedRooms = {};
+        for (var d in _deviceConfigs) {
+          final room = d.room ?? Room.livingRoom;
+          groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(d);
+        }
+        final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
+          groupedRooms.entries.toList()
+            ..sort((a, b) => a.key.name.compareTo(b.key.name)),
+        );
+        _roomsMap = sortedRooms;
+      case Failure():
+        break;
+    }
+    notifyListeners();
+  }
 }
