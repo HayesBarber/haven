@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/screens/splash.dart';
-import 'package:haven/utils/app_config.dart';
+import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/logger.dart';
 
 void main() async {

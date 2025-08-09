@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:haven/utils/app_config.dart';
+import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:dio/dio.dart';
 
