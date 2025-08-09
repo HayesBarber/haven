@@ -22,9 +22,22 @@ class AppConfig {
         LOGGER.log('Found username: $_username');
       }
 
+      _setupStorageListener();
+
       return Success(null);
     } catch (e) {
       return Failure(Exception('Failed to initialize app config: $e'));
     }
+  }
+
+  void _setupStorageListener() {
+    LocalStorage.I.addListener(() {
+      final value = LocalStorage.I.value;
+
+      if (value == null || value.key == StorageKey.username) {
+        _username = value?.value ?? '';
+        LOGGER.log('Username updated via listener: $_username');
+      }
+    });
   }
 }
