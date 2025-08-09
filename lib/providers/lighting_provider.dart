@@ -43,6 +43,9 @@ class LightingProvider extends ChangeNotifier {
       final room = device.room ?? Room.livingRoom;
       groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
     }
+    for (var deviceList in groupedRooms.values) {
+      deviceList.sort((a, b) => a.name.compareTo(b.name));
+    }
     final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
       groupedRooms.entries.toList()
         ..sort((a, b) => a.key.name.compareTo(b.key.name)),
