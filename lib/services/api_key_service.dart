@@ -11,6 +11,7 @@ import 'package:haven/utils/result.dart';
 class ApiKeyService {
   ChallengeVerificationResponse? _apiKey;
   Future<Result<String, Exception>>? _inProgress;
+  bool _initialized = false;
 
   ApiKeyService._();
   static final ApiKeyService _instance = ApiKeyService._();
@@ -35,6 +36,8 @@ class ApiKeyService {
       return const Success(null);
     } catch (e) {
       return Failure(Exception('Failed to load API key: $e'));
+    } finally {
+      _initialized = true;
     }
   }
 
@@ -46,6 +49,10 @@ class ApiKeyService {
   }
 
   Future<Result<String, Exception>> getApiKey() async {
+    if (!_initialized) {
+      await _initAsync();
+    }
+
     if (_inProgress != null) {
       LOGGER.log('getApiKey already in progress, returning existing future');
       return _inProgress!;
