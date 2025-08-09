@@ -1,9 +1,12 @@
+import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:haven/flows/create_user/generate_key_pair.dart';
 
-class CreateUserProvider extends ChangeNotifier {
+class CreateUserProvider extends NestedNavigatorProvider {
   final TextEditingController controller = TextEditingController();
   String _username = '';
+
+  CreateUserProvider({required super.navKey});
 
   String get username => _username;
 
@@ -15,6 +18,6 @@ class CreateUserProvider extends ChangeNotifier {
   bool get isValid => _username.trim().isNotEmpty;
 
   void onUsernameCreated(BuildContext context) {
-    context.push('/new-user/generate-key-pair');
+    push(const GenerateKeyPair());
   }
 }
