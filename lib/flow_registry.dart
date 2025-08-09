@@ -8,7 +8,7 @@ class FlowRegistry {
   static Future? startFlow(Flows flow) {
     switch (flow) {
       case Flows.createUser:
-        return FlowStarter.I.start(
+        return FlowStarter.start(
           providerBuilder: (key) => CreateUserProvider(navKey: key),
           childBuilder: (context) => const CreateUserEntry(),
         );
