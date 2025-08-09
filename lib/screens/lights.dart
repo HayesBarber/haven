@@ -36,7 +36,10 @@ class Lights extends StatelessWidget {
       groups.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
-          child: FTileGroup(label: Text(group.key.name), children: children),
+          child: FTileGroup(
+            label: Text(group.key.displayName),
+            children: children,
+          ),
         ),
       );
     }
