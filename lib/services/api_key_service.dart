@@ -8,6 +8,10 @@ import 'package:haven/utils/result.dart';
 class ApiKeyService {
   ChallengeVerificationResponse? _apiKey;
 
+  ApiKeyService._();
+  static final ApiKeyService _instance = ApiKeyService._();
+  static ApiKeyService get I => _instance;
+
   Future<Result<void, Exception>> _initAsync() async {
     try {
       final stored = await LocalStorage.I.read(StorageKey.apiKey);
