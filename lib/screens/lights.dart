@@ -47,7 +47,7 @@ class Lights extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 32.0,
-              vertical: 16.0,
+              vertical: 24.0,
             ),
             child: Row(
               children: [
