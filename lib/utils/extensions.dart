@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 extension NumDurationExtensions on num {
@@ -28,4 +29,22 @@ extension BuildContextExtension on BuildContext {
 
   /// screen height
   double get sh => MediaQuery.of(this).size.height;
+}
+
+extension ResponseExtension<T> on Response<T?> {
+  void assertValid({
+    int expectedStatusCode = 200,
+    bool assertDataNonNull = true,
+  }) {
+    final statusOk = statusCode == expectedStatusCode;
+    final dataOk = !assertDataNonNull || data != null;
+
+    if (!statusOk || !dataOk) {
+      throw Exception(
+        'Invalid response: expected HTTP $expectedStatusCode'
+        '${assertDataNonNull ? " with non-null data" : ""}, '
+        'but got statusCode=$statusCode, data=$data',
+      );
+    }
+  }
 }

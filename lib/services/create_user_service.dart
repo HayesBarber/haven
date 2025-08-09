@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:curveauth_dart/curveauth_dart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:haven/services/local_storage.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
@@ -28,11 +29,7 @@ class CreateUserService {
         createUserRequest: req.build(),
       );
 
-      if (response.statusCode != 200) {
-        return Failure(
-          Exception('Unexpected status code: ${response.statusCode}'),
-        );
-      }
+      response.assertValid(assertDataNonNull: false);
 
       await LocalStorage.I.write(StorageKey.username, username);
       final json = jsonEncode(keyPair.toJson());

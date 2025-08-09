@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gatekeeper_client/gatekeeper_client.dart';
 import 'package:haven/services/local_storage.dart';
 import 'package:haven/services/app_config.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:haven/utils/result.dart';
@@ -111,9 +112,9 @@ class ApiKeyService {
     final challengeResponse = await api.generateChallengeChallengePost(
       challengeRequest: challengeReq.build(),
     );
-    if (challengeResponse.statusCode != 200 || challengeResponse.data == null) {
-      throw Exception('Failed to retrieve a challenge');
-    }
+
+    challengeResponse.assertValid();
+
     return challengeResponse.data!;
   }
 
@@ -141,9 +142,9 @@ class ApiKeyService {
     final verifyResponse = await api.verifyChallengeChallengeVerifyPost(
       challengeVerificationRequest: verifyReq.build(),
     );
-    if (verifyResponse.statusCode != 200 || verifyResponse.data == null) {
-      throw Exception('Failed to verify challenge');
-    }
+
+    verifyResponse.assertValid();
+
     return verifyResponse.data!;
   }
 }
