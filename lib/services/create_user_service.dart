@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:curveauth_dart/curveauth_dart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:haven/services/local_storage.dart';
+import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
@@ -14,7 +15,7 @@ class CreateUserService {
 
       final api = HomeApiClient(
         basePathOverride: dotenv.get("CREATE_USER_URL"),
-        interceptors: [],
+        interceptors: HttpInterceptors.getInterceptors(),
       ).getUsersApi();
 
       final keyPair = ECCKeyPair.generate();
