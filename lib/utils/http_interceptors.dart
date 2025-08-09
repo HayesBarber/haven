@@ -1,15 +1,31 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:haven/services/api_key_service.dart';
 import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:haven/utils/result.dart';
 
 class HttpInterceptors {
   static final String _userAgent =
       dotenv.maybeGet('HTTP_USER_AGENT') ?? 'Haven-User-Agent';
 
-  static List<Interceptor> getInterceptors() {
-    return [commonHeadersInterceptor(), if (kDebugMode) loggingInterceptor()];
+  static List<Interceptor> getInterceptors({bool addApiKey = false}) {
+    return [
+      commonHeadersInterceptor(),
+      if (addApiKey) apiKeyInterceptor(),
+      if (kDebugMode) loggingInterceptor(),
+    ];
+  }
+
+  static Interceptor apiKeyInterceptor() {
+    return InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final apiKey = await ApiKeyService.I.getApiKey().unwrapOr('invalid');
+        options.headers['x-api-key'] = apiKey;
+        handler.next(options);
+      },
+    );
   }
 
   static Interceptor commonHeadersInterceptor() {
