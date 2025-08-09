@@ -4,6 +4,7 @@ import 'package:curveauth_dart/curveauth_dart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gatekeeper_client/gatekeeper_client.dart';
 import 'package:haven/services/local_storage.dart';
+import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:haven/utils/result.dart';
@@ -105,7 +106,8 @@ class ApiKeyService {
   }
 
   Future<ChallengeResponse> _generateChallenge(ChallengeApi api) async {
-    final challengeReq = ChallengeRequestBuilder()..clientId = "TODO";
+    final challengeReq = ChallengeRequestBuilder()
+      ..clientId = AppConfig.I.username;
     final challengeResponse = await api.generateChallengeChallengePost(
       challengeRequest: challengeReq.build(),
     );
@@ -133,7 +135,7 @@ class ApiKeyService {
     String signature,
   ) async {
     final verifyReq = ChallengeVerificationRequestBuilder()
-      ..clientId = "TODO"
+      ..clientId = AppConfig.I.username
       ..challengeId = challenge.challengeId
       ..signature = signature;
     final verifyResponse = await api.verifyChallengeChallengeVerifyPost(
