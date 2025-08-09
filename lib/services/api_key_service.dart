@@ -28,7 +28,7 @@ class ApiKeyService {
         return const Success(null);
       }
 
-      final mapFromStorage = jsonDecode(stored) as Map<String, dynamic>;
+      final mapFromStorage = jsonDecode(stored);
 
       _apiKey = serializers.deserializeWith(
         ChallengeVerificationResponse.serializer,
@@ -37,7 +37,9 @@ class ApiKeyService {
       LOGGER.log('Loaded API key');
       return const Success(null);
     } catch (e) {
-      return Failure(Exception('Failed to load API key: $e'));
+      String message = 'Failed to load API key: $e';
+      LOGGER.log(message);
+      return Failure(Exception(message));
     } finally {
       _initialized = true;
     }
