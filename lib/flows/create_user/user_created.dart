@@ -16,7 +16,10 @@ class UserCreated extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.check_circle_rounded, size: context.sw / 2),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Icon(Icons.check_circle_rounded, size: context.sw / 3),
+              ),
               Text(
                 'Welcome ${provider.username}!',
                 style: context.textTheme.titleLarge,
