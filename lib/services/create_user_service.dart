@@ -8,6 +8,10 @@ import 'package:home_api_client/home_api_client.dart';
 class CreateUserService {
   Future<Result<void, Exception>> createUser(String username) async {
     try {
+      if (username.isEmpty) {
+        throw ArgumentError("Username can not be empty");
+      }
+
       final api = HomeApiClient(
         basePathOverride: dotenv.get("CREATE_USER_URL"),
         interceptors: [],
