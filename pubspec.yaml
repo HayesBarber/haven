@@ -27,6 +27,7 @@ dependencies:
     git:
       url: https://github.com/HayesBarber/curveauth-dart
       ref: main
+  dio: ^5.9.0
 
 dev_dependencies:
   flutter_test:
