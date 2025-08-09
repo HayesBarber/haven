@@ -1,4 +1,3 @@
-import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui/widgets/button.dart';
@@ -26,7 +25,7 @@ class Splash extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
               child: FButton(
                 onPress: () {
-                  FlowStarter.I.start(Flows.createUser.name);
+                  startFlow(Flows.createUser);
                 },
                 child: Text("Get Started"),
               ),
