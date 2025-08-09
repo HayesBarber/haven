@@ -19,8 +19,8 @@ class LightingProvider extends ChangeNotifier {
     _deviceConfigs = devices;
   }
 
-  Map<Room, List<DeviceConfig>> get roomMap => _roomMap;
-  set _rooms(Map<Room, List<DeviceConfig>> rooms) {
+  Map<Room, List<DeviceConfig>> get roomsMap => _roomMap;
+  set _roomsMap(Map<Room, List<DeviceConfig>> rooms) {
     _roomMap = rooms;
   }
 
@@ -46,9 +46,9 @@ class LightingProvider extends ChangeNotifier {
         final Map<Room, List<DeviceConfig>> groupedRooms = {};
         for (var device in devices) {
           final room = device.room ?? Room.livingRoom;
-          groupedRooms.getOrDefault(room, []).add(device);
+          groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
         }
-        _rooms = groupedRooms;
+        _roomsMap = groupedRooms;
       case Failure():
         _error = true;
     }
