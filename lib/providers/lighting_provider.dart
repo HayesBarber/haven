@@ -28,22 +28,26 @@ class LightingProvider extends ChangeNotifier {
     switch (response) {
       case Success(value: final devices):
         _deviceConfigs = devices;
-        final Map<Room, List<DeviceConfig>> groupedRooms = {};
-        for (var device in devices) {
-          final room = device.room ?? Room.livingRoom;
-          groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
-        }
-        final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
-          groupedRooms.entries.toList()
-            ..sort((a, b) => a.key.name.compareTo(b.key.name)),
-        );
-        _roomsMap = sortedRooms;
+        _roomsMap = _buildRoomMap(devices);
       case Failure():
         _hasError = true;
     }
 
     _loading = false;
     notifyListeners();
+  }
+
+  Map<Room, List<DeviceConfig>> _buildRoomMap(List<DeviceConfig> devices) {
+    final Map<Room, List<DeviceConfig>> groupedRooms = {};
+    for (var device in devices) {
+      final room = device.room ?? Room.livingRoom;
+      groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
+    }
+    final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
+      groupedRooms.entries.toList()
+        ..sort((a, b) => a.key.name.compareTo(b.key.name)),
+    );
+    return sortedRooms;
   }
 
   void toggleDevice(DeviceConfig device) async {
@@ -59,16 +63,7 @@ class LightingProvider extends ChangeNotifier {
           ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
           ...updatedDevices,
         ];
-        final Map<Room, List<DeviceConfig>> groupedRooms = {};
-        for (var d in _deviceConfigs) {
-          final room = d.room ?? Room.livingRoom;
-          groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(d);
-        }
-        final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
-          groupedRooms.entries.toList()
-            ..sort((a, b) => a.key.name.compareTo(b.key.name)),
-        );
-        _roomsMap = sortedRooms;
+        _roomsMap = _buildRoomMap(_deviceConfigs);
       case Failure():
         break;
     }
