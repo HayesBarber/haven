@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:haven/services/lighting_service.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
 class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
+  Map<Room, List<DeviceConfig>> _roomMap = {};
   bool _isLoading = false;
   bool _hasError = false;
 
@@ -15,6 +17,11 @@ class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> get devices => _deviceConfigs;
   set _devices(List<DeviceConfig> devices) {
     _deviceConfigs = devices;
+  }
+
+  Map<Room, List<DeviceConfig>> get roomMap => _roomMap;
+  set _rooms(Map<Room, List<DeviceConfig>> rooms) {
+    _roomMap = rooms;
   }
 
   bool get loading => _isLoading;
@@ -36,6 +43,12 @@ class LightingProvider extends ChangeNotifier {
     switch (response) {
       case Success(value: final devices):
         _devices = devices;
+        final Map<Room, List<DeviceConfig>> groupedRooms = {};
+        for (var device in devices) {
+          final room = device.room ?? Room.livingRoom;
+          groupedRooms.getOrDefault(room, []).add(device);
+        }
+        _rooms = groupedRooms;
       case Failure():
         _error = true;
     }

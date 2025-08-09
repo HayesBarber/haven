@@ -48,3 +48,9 @@ extension ResponseExtension<T> on Response<T?> {
     }
   }
 }
+
+extension DefaultMap<K, V extends Object> on Map<K, V> {
+  V getOrDefault(K key, V defaultValue) {
+    return this[key] ?? defaultValue;
+  }
+}
