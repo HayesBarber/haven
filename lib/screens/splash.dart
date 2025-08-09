@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui/widgets/button.dart';
-import 'package:go_router/go_router.dart';
+import 'package:haven/flow_registry.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -25,7 +25,7 @@ class Splash extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
               child: FButton(
                 onPress: () {
-                  context.push('/new-user/create-user');
+                  FlowRegistry.startFlow(Flows.createUser);
                 },
                 child: Text("Get Started"),
               ),

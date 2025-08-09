@@ -11,19 +11,22 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  gatekeeper_client:
-    path: ./gatekeeper_client
-  home_api_client:
-    path: ./home_api_client
   forui: ^0.14.1
   provider: ^6.1.5
   flutter_dotenv: ^5.2.1
   flutter_secure_storage: ^9.2.4
+  gatekeeper_client:
+    path: ./gatekeeper_client
+  home_api_client:
+    path: ./home_api_client
+  flowkit:
+    git:
+      url: https://github.com/HayesBarber/flowkit
+      ref: main
   curveauth_dart:
     git:
       url: https://github.com/HayesBarber/curveauth-dart
       ref: main
-  go_router: ^16.1.0
 
 dev_dependencies:
   flutter_test:

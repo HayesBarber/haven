@@ -1,7 +1,8 @@
+import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:forui/forui.dart';
-import 'package:haven/router.dart';
+import 'package:haven/screens/splash.dart';
 import 'package:haven/utils/logger.dart';
 
 void main() async {
@@ -21,13 +22,14 @@ class Haven extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = FThemes.rose.dark;
 
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       supportedLocales: FLocalizations.supportedLocales,
       localizationsDelegates: const [...FLocalizations.localizationsDelegates],
       builder: (_, child) => FTheme(data: theme, child: child!),
       theme: theme.toApproximateMaterialTheme(),
-      routerConfig: router,
+      navigatorKey: Navigation.I.navigatorKey,
+      home: Splash(),
     );
   }
 }
