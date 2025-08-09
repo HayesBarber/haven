@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:haven/utils/app_config.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:dio/dio.dart';
 
@@ -15,6 +16,7 @@ class HttpInterceptors {
     return InterceptorsWrapper(
       onRequest: (options, handler) async {
         options.headers['User-Agent'] = _userAgent;
+        options.headers['x-requestor-id'] = AppConfig.I.username;
         handler.next(options);
       },
     );
