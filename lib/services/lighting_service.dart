@@ -13,7 +13,7 @@ class LightingService {
     try {
       final api = HomeApiClient(
         basePathOverride: dotenv.get('HOME_API_URL'),
-        interceptors: HttpInterceptors.getInterceptors(),
+        interceptors: HttpInterceptors.getInterceptors(addApiKey: true),
       ).getDeviceApi();
 
       final response = await api.readAllDevicesDeviceReadGet();
