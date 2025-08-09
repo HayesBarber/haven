@@ -30,5 +30,12 @@ class ApiKeyService {
     }
   }
 
+  bool _isKeyValid() {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    final connectTimeoutMs = 5000;
+    return _apiKey != null &&
+        _apiKey!.expiresAt.millisecondsSinceEpoch > now + connectTimeoutMs;
+  }
+
   void _getApiKey() async {}
 }
