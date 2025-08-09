@@ -2,7 +2,7 @@ import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:forui/forui.dart';
-import 'package:haven/screens/lights.dart';
+import 'package:haven/screens/main_navigation.dart';
 import 'package:haven/screens/splash.dart';
 import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/logger.dart';
@@ -44,6 +44,6 @@ class AppEntry extends StatelessWidget {
       return const Splash();
     }
 
-    return const Lights();
+    return const MainNavigation();
   }
 }
