@@ -1,8 +1,26 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:haven/utils/logger.dart';
 import 'package:dio/dio.dart';
 
 class HttpInterceptors {
-  static InterceptorsWrapper loggingInterceptor() {
+  static final String _userAgent =
+      dotenv.maybeGet('HTTP_USER_AGENT') ?? 'Haven-User-Agent';
+
+  static List<Interceptor> getInterceptors() {
+    return [commonHeadersInterceptor(), if (kDebugMode) loggingInterceptor()];
+  }
+
+  static Interceptor commonHeadersInterceptor() {
+    return InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        options.headers['User-Agent'] = _userAgent;
+        handler.next(options);
+      },
+    );
+  }
+
+  static Interceptor loggingInterceptor() {
     return InterceptorsWrapper(
       onRequest: (options, handler) async {
         LOGGER.log('REQUEST[${options.method}] => URL: ${options.uri}');
