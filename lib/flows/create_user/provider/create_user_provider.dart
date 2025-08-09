@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:haven/flows/create_user/error_creating_user.dart';
 import 'package:haven/flows/create_user/generate_key_pair.dart';
 import 'package:haven/flows/create_user/user_created.dart';
+import 'package:haven/main.dart';
 import 'package:haven/services/create_user_service.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
@@ -39,5 +40,9 @@ class CreateUserProvider extends NestedNavigatorProvider {
       case Failure():
         push(const ErrorCreatingUser());
     }
+  }
+
+  void goToAppEntry() {
+    Navigation.I.pushAndRemoveAll(const AppEntry());
   }
 }
