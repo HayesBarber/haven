@@ -72,63 +72,76 @@ class ApiKeyService {
       if (_isKeyValid()) {
         return Success(_apiKey!.apiKey);
       }
-
       LOGGER.log('API key is null or expired, fetching a new one');
+      return await _fetchNewApiKey();
+    } catch (e) {
+      return Failure(Exception('Failed to get API key: $e'));
+    }
+  }
 
+  Future<Result<String, Exception>> _fetchNewApiKey() async {
+    try {
       final api = GatekeeperClient(
         basePathOverride: dotenv.get('GATEKEEPER_URL'),
         interceptors: HttpInterceptors.getInterceptors(),
       ).getChallengeApi();
 
-      final challengeReq = ChallengeRequestBuilder()..clientId = "TODO";
+      final challenge = await _generateChallenge(api);
+      final signature = await _signChallenge(challenge);
+      final verification = await _verifyChallenge(api, challenge, signature);
 
-      final challengeResponse = await api.generateChallengeChallengePost(
-        challengeRequest: challengeReq.build(),
-      );
-
-      if (challengeResponse.statusCode != 200 ||
-          challengeResponse.data == null) {
-        throw Exception('Failed to retrieve a challenge');
-      }
-
-      final challenge = challengeResponse.data!;
-
-      final keyPairJson = await LocalStorage.I.read(StorageKey.keyPair);
-      if (keyPairJson == null) {
-        throw ArgumentError('No key pair stored');
-      }
-      final keyPair = ECCKeyPair.fromJson(
-        Map<String, String>.from(jsonDecode(keyPairJson)),
-      );
-
-      final signature = await keyPair.createSignature(challenge.challenge);
-
-      final verifyReq = ChallengeVerificationRequestBuilder()
-        ..clientId = "TODO"
-        ..challengeId = challenge.challengeId
-        ..signature = signature;
-
-      final verifyResponse = await api.verifyChallengeChallengeVerifyPost(
-        challengeVerificationRequest: verifyReq.build(),
-      );
-
-      if (verifyResponse.statusCode != 200 || verifyResponse.data == null) {
-        throw Exception('Failed to verify challenge');
-      }
-
-      _apiKey = verifyResponse.data!;
-
+      _apiKey = verification;
       final serialized = serializers.serializeWith(
         ChallengeVerificationResponse.serializer,
         _apiKey,
       );
       final json = jsonEncode(serialized);
-
       await LocalStorage.I.write(StorageKey.apiKey, json);
 
       return Success(_apiKey!.apiKey);
     } catch (e) {
-      return Failure(Exception('Failed to get API key: $e'));
+      return Failure(Exception('Failed to fetch new API key: $e'));
     }
+  }
+
+  Future<ChallengeResponse> _generateChallenge(ChallengeApi api) async {
+    final challengeReq = ChallengeRequestBuilder()..clientId = "TODO";
+    final challengeResponse = await api.generateChallengeChallengePost(
+      challengeRequest: challengeReq.build(),
+    );
+    if (challengeResponse.statusCode != 200 || challengeResponse.data == null) {
+      throw Exception('Failed to retrieve a challenge');
+    }
+    return challengeResponse.data!;
+  }
+
+  Future<String> _signChallenge(ChallengeResponse challenge) async {
+    final keyPairJson = await LocalStorage.I.read(StorageKey.keyPair);
+    if (keyPairJson == null) {
+      throw ArgumentError('No key pair stored');
+    }
+    final keyPair = ECCKeyPair.fromJson(
+      Map<String, String>.from(jsonDecode(keyPairJson)),
+    );
+    final signature = await keyPair.createSignature(challenge.challenge);
+    return signature;
+  }
+
+  Future<ChallengeVerificationResponse> _verifyChallenge(
+    ChallengeApi api,
+    ChallengeResponse challenge,
+    String signature,
+  ) async {
+    final verifyReq = ChallengeVerificationRequestBuilder()
+      ..clientId = "TODO"
+      ..challengeId = challenge.challengeId
+      ..signature = signature;
+    final verifyResponse = await api.verifyChallengeChallengeVerifyPost(
+      challengeVerificationRequest: verifyReq.build(),
+    );
+    if (verifyResponse.statusCode != 200 || verifyResponse.data == null) {
+      throw Exception('Failed to verify challenge');
+    }
+    return verifyResponse.data!;
   }
 }
