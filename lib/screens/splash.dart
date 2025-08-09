@@ -25,7 +25,7 @@ class Splash extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
               child: FButton(
                 onPress: () {
-                  startFlow(Flows.createUser);
+                  FlowRegistry.startFlow(Flows.createUser);
                 },
                 child: Text("Get Started"),
               ),
