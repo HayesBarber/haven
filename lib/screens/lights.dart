@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/utils/extensions.dart';
+import 'package:home_api_client/home_api_client.dart';
 import 'package:provider/provider.dart';
 
 class Lights extends StatelessWidget {
@@ -18,7 +19,17 @@ class Lights extends StatelessWidget {
       List<FTile> children = [];
 
       for (var config in group.value) {
-        children.add(FTile(title: Text(config.name)));
+        children.add(
+          FTile(
+            title: Text(config.name),
+            prefix: Icon(
+              Icons.power_settings_new,
+              color: config.powerState == PowerState.on_
+                  ? context.colorScheme.primary
+                  : context.colorScheme.secondary,
+            ),
+          ),
+        );
       }
 
       groups.add(
