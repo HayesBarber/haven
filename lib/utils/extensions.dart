@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:home_api_client/home_api_client.dart';
 
 extension NumDurationExtensions on num {
   Duration get microseconds => Duration(microseconds: round());
@@ -52,5 +53,19 @@ extension ResponseExtension<T> on Response<T?> {
 extension DefaultMap<K, V extends Object> on Map<K, V> {
   V getOrDefault(K key, V defaultValue) {
     return this[key] ?? defaultValue;
+  }
+}
+
+extension RoomName on Room {
+  String get displayName {
+    switch (this) {
+      case Room.bedroom:
+        return "Bedroom";
+      case Room.livingRoom:
+        return "Living Room";
+      case Room.upstairs:
+        return "Upstairs";
+    }
+    return "Unknown";
   }
 }
