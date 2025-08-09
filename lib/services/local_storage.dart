@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-enum StorageKey { username, keyPair }
+enum StorageKey { username, keyPair, apiKey }
 
 class LocalStorage {
   LocalStorage._();
