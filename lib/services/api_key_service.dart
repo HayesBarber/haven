@@ -37,9 +37,7 @@ class ApiKeyService {
       LOGGER.log('Loaded API key');
       return const Success(null);
     } catch (e) {
-      String message = 'Failed to load API key: $e';
-      LOGGER.log(message);
-      return Failure(Exception(message));
+      return Failure(Exception('Failed to load API key: $e'));
     } finally {
       _initialized = true;
     }

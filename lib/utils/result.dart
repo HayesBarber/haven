@@ -1,3 +1,4 @@
+import 'package:haven/utils/logger.dart';
 import 'dart:async';
 
 extension ResultFuture<S, E extends Exception> on Future<Result<S, E>> {
@@ -53,5 +54,7 @@ final class Success<S, E extends Exception> extends Result<S, E> {
 
 final class Failure<S, E extends Exception> extends Result<S, E> {
   final E exception;
-  const Failure(this.exception);
+  Failure(this.exception) {
+    LOGGER.log('Failure: $exception');
+  }
 }
