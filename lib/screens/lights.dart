@@ -71,6 +71,10 @@ class Lights extends StatelessWidget {
                   ? context.colorScheme.primary
                   : context.colorScheme.secondary,
             ),
+            suffix: provider.loadingDevices.contains(group.key.name)
+                ? CupertinoActivityIndicator()
+                : null,
+            onPress: () => provider.toggleRoom(group.key),
           ),
         );
       }

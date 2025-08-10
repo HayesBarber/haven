@@ -103,6 +103,14 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleRoom(Room room) async {
+    _loadingDevices.add(room.name);
+    notifyListeners();
+
+    _loadingDevices.remove(room.name);
+    notifyListeners();
+  }
+
   void toggleHome() async {
     _loadingDevices.add('Home');
     notifyListeners();
