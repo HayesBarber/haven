@@ -7,7 +7,7 @@ import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
-class CreateUserService {
+class UserService {
   Future<Result<void, Exception>> createUser(String username) async {
     try {
       if (username.isEmpty) {
