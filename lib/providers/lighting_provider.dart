@@ -11,6 +11,7 @@ class LightingProvider extends ChangeNotifier {
   final Set<String> _loadingDevices = {};
   bool _loading = false;
   bool _hasError = false;
+  bool _homeIsOn = false;
 
   LightingProvider() {
     _initAsync();
@@ -21,13 +22,18 @@ class LightingProvider extends ChangeNotifier {
   Set<String> get loadingDevices => _loadingDevices;
   bool get loading => _loading;
   bool get hasError => _hasError;
-  bool get homeIsOn {
-    for (var device in _deviceConfigs) {
-      if (device.powerState == PowerState.on_) {
-        return true;
+  bool get homeIsOn => _homeIsOn;
+  void _setHomeIsOn() {
+    bool findValue() {
+      for (var device in _deviceConfigs) {
+        if (device.powerState == PowerState.on_) {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
+
+    _homeIsOn = findValue();
   }
 
   Future<void> _initAsync() async {
@@ -60,6 +66,7 @@ class LightingProvider extends ChangeNotifier {
       groupedRooms.entries.toList()
         ..sort((a, b) => a.key.name.compareTo(b.key.name)),
     );
+    _setHomeIsOn();
     return sortedRooms;
   }
 
@@ -70,7 +77,7 @@ class LightingProvider extends ChangeNotifier {
         ? PowerAction.off
         : PowerAction.on_;
 
-    final result = await LightingService.I.controlDevice(device, action);
+    final result = await LightingService.I.controlDevice(device.name, action);
     switch (result) {
       case Success(value: final updatedDevices):
         final updatedNames = updatedDevices.map((d) => d.name).toSet();
@@ -84,6 +91,14 @@ class LightingProvider extends ChangeNotifier {
     }
 
     _loadingDevices.remove(device.name);
+    notifyListeners();
+  }
+
+  void toggleHome() {
+    _loadingDevices.add('Home');
+    notifyListeners();
+
+    _loadingDevices.remove('Home');
     notifyListeners();
   }
 }

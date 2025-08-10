@@ -29,14 +29,14 @@ class LightingService {
   }
 
   Future<Result<List<DeviceConfig>, Exception>> controlDevice(
-    DeviceConfig device,
+    String name,
     PowerAction action,
   ) async {
     try {
       final api = _client.getLightingApi();
 
       final response = await api.setStateLightingNameActionGet(
-        name: device.name,
+        name: name,
         action: action,
       );
       response.assertValid();
