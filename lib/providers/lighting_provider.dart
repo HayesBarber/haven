@@ -9,6 +9,7 @@ class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
   Map<Room, List<DeviceConfig>> _roomsMap = {};
   final Set<String> _loadingDevices = {};
+  final Map<Room, bool> _roomsPowerMap = {};
   bool _loading = false;
   bool _hasError = false;
   bool _homeIsOn = false;
@@ -20,6 +21,7 @@ class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> get devices => _deviceConfigs;
   Map<Room, List<DeviceConfig>> get roomsMap => _roomsMap;
   Set<String> get loadingDevices => _loadingDevices;
+  Map<Room, bool> get roomsPowerMap => _roomsPowerMap;
   bool get loading => _loading;
   bool get hasError => _hasError;
   bool get homeIsOn => _homeIsOn;
@@ -44,7 +46,7 @@ class LightingProvider extends ChangeNotifier {
     switch (response) {
       case Success(value: final devices):
         _deviceConfigs = devices;
-        _roomsMap = _buildRoomMap(devices);
+        _buildRoomMap(devices);
       case Failure():
         _hasError = true;
     }
@@ -53,11 +55,14 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<Room, List<DeviceConfig>> _buildRoomMap(List<DeviceConfig> devices) {
+  void _buildRoomMap(List<DeviceConfig> devices) {
     final Map<Room, List<DeviceConfig>> groupedRooms = {};
     for (var device in devices) {
       final room = device.room ?? Room.livingRoom;
       groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
+      if (_roomsPowerMap[room] != true) {
+        _roomsPowerMap[room] = device.powerState == PowerState.on_;
+      }
     }
     for (var deviceList in groupedRooms.values) {
       deviceList.sort((a, b) => a.name.compareTo(b.name));
@@ -67,7 +72,7 @@ class LightingProvider extends ChangeNotifier {
         ..sort((a, b) => a.key.name.compareTo(b.key.name)),
     );
     _setHomeIsOn();
-    return sortedRooms;
+    _roomsMap = sortedRooms;
   }
 
   void _updateDevicesAndRooms(List<DeviceConfig> updatedDevices) {
@@ -76,7 +81,7 @@ class LightingProvider extends ChangeNotifier {
       ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
       ...updatedDevices,
     ];
-    _roomsMap = _buildRoomMap(_deviceConfigs);
+    _buildRoomMap(_deviceConfigs);
   }
 
   void toggleDevice(DeviceConfig device) async {

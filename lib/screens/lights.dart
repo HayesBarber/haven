@@ -60,6 +60,21 @@ class Lights extends StatelessWidget {
         );
       }
 
+      if (children.length > 1) {
+        children.insert(
+          0,
+          FTile(
+            title: const Text('All'),
+            prefix: Icon(
+              Icons.power_settings_new,
+              color: provider.roomsPowerMap[group.key] == true
+                  ? context.colorScheme.primary
+                  : context.colorScheme.secondary,
+            ),
+          ),
+        );
+      }
+
       groups.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
