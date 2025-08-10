@@ -71,7 +71,7 @@ class Lights extends StatelessWidget {
                   ? context.colorScheme.primary
                   : context.colorScheme.secondary,
             ),
-            suffix: provider.loadingDevices.contains(group.key.name)
+            suffix: provider.loadingDevices.contains(group.key)
                 ? CupertinoActivityIndicator()
                 : null,
             onPress: () => provider.toggleRoom(group.key),
@@ -82,10 +82,7 @@ class Lights extends StatelessWidget {
       groups.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
-          child: FTileGroup(
-            label: Text(group.key.displayName),
-            children: children,
-          ),
+          child: FTileGroup(label: Text(group.key), children: children),
         ),
       );
     }
