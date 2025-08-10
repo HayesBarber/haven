@@ -8,6 +8,7 @@ import 'package:home_api_client/home_api_client.dart';
 class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
   Map<Room, List<DeviceConfig>> _roomsMap = {};
+  Set<String> _loadingDevices = {};
   bool _loading = false;
   bool _hasError = false;
 
@@ -17,6 +18,7 @@ class LightingProvider extends ChangeNotifier {
 
   List<DeviceConfig> get devices => _deviceConfigs;
   Map<Room, List<DeviceConfig>> get roomsMap => _roomsMap;
+  Set<String> get loadingDevices => _loadingDevices;
   bool get loading => _loading;
   bool get hasError => _hasError;
 
@@ -54,6 +56,8 @@ class LightingProvider extends ChangeNotifier {
   }
 
   void toggleDevice(DeviceConfig device) async {
+    _loadingDevices.add(device.name);
+    notifyListeners();
     final action = device.powerState == PowerState.on_
         ? PowerAction.off
         : PowerAction.on_;
@@ -70,6 +74,8 @@ class LightingProvider extends ChangeNotifier {
       case Failure():
         break;
     }
+
+    _loadingDevices.remove(device.name);
     notifyListeners();
   }
 }

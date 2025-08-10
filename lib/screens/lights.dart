@@ -29,6 +29,9 @@ class Lights extends StatelessWidget {
                   ? context.colorScheme.primary
                   : context.colorScheme.secondary,
             ),
+            suffix: provider.loadingDevices.contains(config.name)
+                ? CupertinoActivityIndicator()
+                : null,
             onPress: () => provider.toggleDevice(config),
           ),
         );
