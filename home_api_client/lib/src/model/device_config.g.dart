@@ -22,7 +22,7 @@ class _$DeviceConfig extends DeviceConfig {
   @override
   final bool? isOffline;
   @override
-  final Room? room;
+  final String? room;
 
   factory _$DeviceConfig([void Function(DeviceConfigBuilder)? updates]) =>
       (DeviceConfigBuilder()..update(updates))._build();
@@ -120,9 +120,9 @@ class DeviceConfigBuilder
   bool? get isOffline => _$this._isOffline;
   set isOffline(bool? isOffline) => _$this._isOffline = isOffline;
 
-  Room? _room;
-  Room? get room => _$this._room;
-  set room(Room? room) => _$this._room = room;
+  String? _room;
+  String? get room => _$this._room;
+  set room(String? room) => _$this._room = room;
 
   DeviceConfigBuilder() {
     DeviceConfig._defaults(this);

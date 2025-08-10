@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:home_api_client/src/model/power_state.dart';
-import 'package:home_api_client/src/model/room.dart';
 import 'package:home_api_client/src/model/device_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -48,8 +47,7 @@ abstract class DeviceConfig implements Built<DeviceConfig, DeviceConfigBuilder> 
   bool? get isOffline;
 
   @BuiltValueField(wireName: r'room')
-  Room? get room;
-  // enum roomEnum {  bedroom,  living_room,  upstairs,  };
+  String? get room;
 
   DeviceConfig._();
 
@@ -57,7 +55,8 @@ abstract class DeviceConfig implements Built<DeviceConfig, DeviceConfigBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeviceConfigBuilder b) => b
-      ..isOffline = false;
+      ..isOffline = false
+      ..room = 'Living Room';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<DeviceConfig> get serializer => _$DeviceConfigSerializer();
@@ -118,7 +117,7 @@ class _$DeviceConfigSerializer implements PrimitiveSerializer<DeviceConfig> {
       yield r'room';
       yield serializers.serialize(
         object.room,
-        specifiedType: const FullType.nullable(Room),
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -197,9 +196,8 @@ class _$DeviceConfigSerializer implements PrimitiveSerializer<DeviceConfig> {
         case r'room':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(Room),
-          ) as Room?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.room = valueDes;
           break;
         default:

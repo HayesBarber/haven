@@ -98,7 +98,6 @@ Class | Method | HTTP request | Description
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [PowerAction](doc/PowerAction.md)
  - [PowerState](doc/PowerState.md)
- - [Room](doc/Room.md)
  - [ValidationError](doc/ValidationError.md)
  - [ValidationErrorLocInner](doc/ValidationErrorLocInner.md)
 

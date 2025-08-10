@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **powerState** | [**PowerState**](PowerState.md) |  | 
 **lastUpdated** | **String** |  | [optional] 
 **isOffline** | **bool** |  | [optional] [default to false]
-**room** | [**Room**](Room.md) |  | [optional] 
+**room** | **String** |  | [optional] [default to 'Living Room']
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

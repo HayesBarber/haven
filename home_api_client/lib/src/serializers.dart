@@ -29,7 +29,6 @@ import 'package:home_api_client/src/model/get_users_response.dart';
 import 'package:home_api_client/src/model/http_validation_error.dart';
 import 'package:home_api_client/src/model/power_action.dart';
 import 'package:home_api_client/src/model/power_state.dart';
-import 'package:home_api_client/src/model/room.dart';
 import 'package:home_api_client/src/model/validation_error.dart';
 import 'package:home_api_client/src/model/validation_error_loc_inner.dart';
 
@@ -51,7 +50,6 @@ part 'serializers.g.dart';
   HTTPValidationError,
   PowerAction,
   PowerState,
-  Room,
   ValidationError,
   ValidationErrorLocInner,
 ])
