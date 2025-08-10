@@ -94,9 +94,24 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleHome() {
+  void toggleHome() async {
     _loadingDevices.add('Home');
     notifyListeners();
+
+    final action = _homeIsOn ? PowerAction.off : PowerAction.on_;
+
+    final result = await LightingService.I.controlDevice('home', action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        final updatedNames = updatedDevices.map((d) => d.name).toSet();
+        _deviceConfigs = [
+          ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
+          ...updatedDevices,
+        ];
+        _roomsMap = _buildRoomMap(_deviceConfigs);
+      case Failure():
+        break;
+    }
 
     _loadingDevices.remove('Home');
     notifyListeners();
