@@ -27,7 +27,7 @@ class Lights extends StatelessWidget {
                     ? context.colorScheme.primary
                     : context.colorScheme.secondary,
               ),
-              suffix: provider.loadingDevices.contains('Home')
+              suffix: provider.loadingDevices.contains('home')
                   ? CupertinoActivityIndicator()
                   : null,
               onPress: () => provider.toggleHome(),
