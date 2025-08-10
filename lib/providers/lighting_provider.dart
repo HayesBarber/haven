@@ -21,6 +21,14 @@ class LightingProvider extends ChangeNotifier {
   Set<String> get loadingDevices => _loadingDevices;
   bool get loading => _loading;
   bool get hasError => _hasError;
+  bool get homeIsOn {
+    for (var device in _deviceConfigs) {
+      if (device.powerState == PowerState.on_) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   Future<void> _initAsync() async {
     _loading = true;
