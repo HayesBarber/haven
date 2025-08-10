@@ -8,16 +8,33 @@ import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
 class UserService {
+  final client = HomeApiClient(
+    basePathOverride: dotenv.get("CREATE_USER_URL"),
+    interceptors: HttpInterceptors.getInterceptors(),
+  );
+
+  Future<Result<List<String>, Exception>> getUsers() async {
+    try {
+      final api = client.getUsersApi();
+
+      final response = await api.getUsersUsersGet();
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.users.toList());
+    } catch (e) {
+      return Failure(Exception('Failed to get users: $e'));
+    }
+  }
+
   Future<Result<void, Exception>> createUser(String username) async {
     try {
       if (username.isEmpty) {
         throw ArgumentError("Username can not be empty");
       }
 
-      final api = HomeApiClient(
-        basePathOverride: dotenv.get("CREATE_USER_URL"),
-        interceptors: HttpInterceptors.getInterceptors(),
-      ).getUsersApi();
+      final api = client.getUsersApi();
 
       final keyPair = ECCKeyPair.generate();
 
