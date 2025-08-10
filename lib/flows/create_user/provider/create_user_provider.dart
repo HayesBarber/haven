@@ -12,7 +12,11 @@ class CreateUserProvider extends NestedNavigatorProvider {
   final TextEditingController controller = TextEditingController();
   String _username = '';
 
-  CreateUserProvider({required super.navKey});
+  CreateUserProvider({required super.navKey}) {
+    // Trigger a call to getUsers here because the device may prompt for network
+    // permission, and this ensures that permission flow starts early.
+    UserService().getUsers();
+  }
 
   String get username => _username;
 
