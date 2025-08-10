@@ -70,6 +70,15 @@ class LightingProvider extends ChangeNotifier {
     return sortedRooms;
   }
 
+  void _updateDevicesAndRooms(List<DeviceConfig> updatedDevices) {
+    final updatedNames = updatedDevices.map((d) => d.name).toSet();
+    _deviceConfigs = [
+      ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
+      ...updatedDevices,
+    ];
+    _roomsMap = _buildRoomMap(_deviceConfigs);
+  }
+
   void toggleDevice(DeviceConfig device) async {
     _loadingDevices.add(device.name);
     notifyListeners();
@@ -80,12 +89,7 @@ class LightingProvider extends ChangeNotifier {
     final result = await LightingService.I.controlDevice(device.name, action);
     switch (result) {
       case Success(value: final updatedDevices):
-        final updatedNames = updatedDevices.map((d) => d.name).toSet();
-        _deviceConfigs = [
-          ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
-          ...updatedDevices,
-        ];
-        _roomsMap = _buildRoomMap(_deviceConfigs);
+        _updateDevicesAndRooms(updatedDevices);
       case Failure():
         break;
     }
@@ -103,12 +107,7 @@ class LightingProvider extends ChangeNotifier {
     final result = await LightingService.I.controlDevice('home', action);
     switch (result) {
       case Success(value: final updatedDevices):
-        final updatedNames = updatedDevices.map((d) => d.name).toSet();
-        _deviceConfigs = [
-          ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
-          ...updatedDevices,
-        ];
-        _roomsMap = _buildRoomMap(_deviceConfigs);
+        _updateDevicesAndRooms(updatedDevices);
       case Failure():
         break;
     }
