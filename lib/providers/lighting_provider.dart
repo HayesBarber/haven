@@ -8,7 +8,7 @@ import 'package:home_api_client/home_api_client.dart';
 class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
   Map<Room, List<DeviceConfig>> _roomsMap = {};
-  Set<String> _loadingDevices = {};
+  final Set<String> _loadingDevices = {};
   bool _loading = false;
   bool _hasError = false;
 
