@@ -101,7 +101,17 @@ class LightingProvider extends ChangeNotifier {
     _loadingDevices.add(room);
     notifyListeners();
 
-    //TODO
+    final action = _roomsPowerMap[room] == true
+        ? PowerAction.off
+        : PowerAction.on_;
+
+    final result = await LightingService.I.controlDevice(room, action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        _updateDevicesAndRooms(updatedDevices);
+      case Failure():
+        break;
+    }
 
     _loadingDevices.remove(room);
     notifyListeners();
