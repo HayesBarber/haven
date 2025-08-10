@@ -107,6 +107,8 @@ class LightingProvider extends ChangeNotifier {
     _loadingDevices.add(room.name);
     notifyListeners();
 
+    //TODO
+
     _loadingDevices.remove(room.name);
     notifyListeners();
   }
