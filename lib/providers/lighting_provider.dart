@@ -7,9 +7,9 @@ import 'package:home_api_client/home_api_client.dart';
 
 class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
-  Map<Room, List<DeviceConfig>> _roomsMap = {};
+  Map<String, List<DeviceConfig>> _roomsMap = {};
   final Set<String> _loadingDevices = {};
-  final Map<Room, bool> _roomsPowerMap = {};
+  final Map<String, bool> _roomsPowerMap = {};
   bool _loading = false;
   bool _hasError = false;
   bool _homeIsOn = false;
@@ -19,9 +19,9 @@ class LightingProvider extends ChangeNotifier {
   }
 
   List<DeviceConfig> get devices => _deviceConfigs;
-  Map<Room, List<DeviceConfig>> get roomsMap => _roomsMap;
+  Map<String, List<DeviceConfig>> get roomsMap => _roomsMap;
   Set<String> get loadingDevices => _loadingDevices;
-  Map<Room, bool> get roomsPowerMap => _roomsPowerMap;
+  Map<String, bool> get roomsPowerMap => _roomsPowerMap;
   bool get loading => _loading;
   bool get hasError => _hasError;
   bool get homeIsOn => _homeIsOn;
@@ -49,9 +49,9 @@ class LightingProvider extends ChangeNotifier {
   }
 
   void _buildRoomMap(List<DeviceConfig> devices) {
-    final Map<Room, List<DeviceConfig>> groupedRooms = {};
+    final Map<String, List<DeviceConfig>> groupedRooms = {};
     for (var device in devices) {
-      final room = device.room ?? Room.livingRoom;
+      final room = device.room ?? 'Unknown';
       groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
     }
     for (var entry in groupedRooms.entries) {
@@ -62,9 +62,8 @@ class LightingProvider extends ChangeNotifier {
       );
       _roomsPowerMap[entry.key] = roomIsOn;
     }
-    final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
-      groupedRooms.entries.toList()
-        ..sort((a, b) => a.key.name.compareTo(b.key.name)),
+    final sortedRooms = LinkedHashMap<String, List<DeviceConfig>>.fromEntries(
+      groupedRooms.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
     );
     _setHomeIsOn();
     _roomsMap = sortedRooms;
@@ -98,13 +97,13 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleRoom(Room room) async {
-    _loadingDevices.add(room.name);
+  void toggleRoom(String room) async {
+    _loadingDevices.add(room);
     notifyListeners();
 
     //TODO
 
-    _loadingDevices.remove(room.name);
+    _loadingDevices.remove(room);
     notifyListeners();
   }
 
