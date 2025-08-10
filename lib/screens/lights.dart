@@ -8,34 +8,31 @@ import 'package:provider/provider.dart';
 
 class Lights extends StatelessWidget {
   const Lights({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<LightingProvider>(context);
 
     List<Widget> groups = [];
 
-    groups.add(
-      Padding(
-        padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
-        child: FTileGroup(
-          children: [
-            FTile(
-              title: const Text('Home'),
-              prefix: Icon(
-                Icons.power_settings_new,
-                color: provider.homeIsOn
-                    ? context.colorScheme.primary
-                    : context.colorScheme.secondary,
+    if (provider.roomsMap.isNotEmpty) {
+      groups.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+          child: FTileGroup(
+            children: [
+              _buildPowerTile(
+                context: context,
+                title: 'Home',
+                isOn: provider.homeIsOn,
+                isLoading: provider.loadingDevices.contains('home'),
+                onPress: () => provider.toggleHome(),
               ),
-              suffix: provider.loadingDevices.contains('Home')
-                  ? CupertinoActivityIndicator()
-                  : null,
-              onPress: () => provider.toggleHome(),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
 
     for (var group in provider.roomsMap.entries) {
       if (group.value.isEmpty) continue;
@@ -44,17 +41,11 @@ class Lights extends StatelessWidget {
 
       for (var config in group.value) {
         children.add(
-          FTile(
-            title: Text(config.name),
-            prefix: Icon(
-              Icons.power_settings_new,
-              color: config.powerState == PowerState.on_
-                  ? context.colorScheme.primary
-                  : context.colorScheme.secondary,
-            ),
-            suffix: provider.loadingDevices.contains(config.name)
-                ? CupertinoActivityIndicator()
-                : null,
+          _buildPowerTile(
+            context: context,
+            title: config.name,
+            isOn: config.powerState == PowerState.on_,
+            isLoading: provider.loadingDevices.contains(config.name),
             onPress: () => provider.toggleDevice(config),
           ),
         );
@@ -63,17 +54,11 @@ class Lights extends StatelessWidget {
       if (children.length > 1) {
         children.insert(
           0,
-          FTile(
-            title: const Text('All'),
-            prefix: Icon(
-              Icons.power_settings_new,
-              color: provider.roomsPowerMap[group.key] == true
-                  ? context.colorScheme.primary
-                  : context.colorScheme.secondary,
-            ),
-            suffix: provider.loadingDevices.contains(group.key)
-                ? CupertinoActivityIndicator()
-                : null,
+          _buildPowerTile(
+            context: context,
+            title: 'All',
+            isOn: provider.roomsPowerMap[group.key] == true,
+            isLoading: provider.loadingDevices.contains(group.key),
             onPress: () => provider.toggleRoom(group.key),
           ),
         );
@@ -108,6 +93,26 @@ class Lights extends StatelessWidget {
           ...groups,
         ],
       ),
+    );
+  }
+
+  FTile _buildPowerTile({
+    required BuildContext context,
+    required String title,
+    required bool isOn,
+    required bool isLoading,
+    required VoidCallback onPress,
+  }) {
+    return FTile(
+      title: Text(title),
+      prefix: Icon(
+        Icons.power_settings_new,
+        color: isOn
+            ? context.colorScheme.primary
+            : context.colorScheme.secondary,
+      ),
+      suffix: isLoading ? CupertinoActivityIndicator() : null,
+      onPress: onPress,
     );
   }
 }

@@ -78,50 +78,38 @@ class LightingProvider extends ChangeNotifier {
     _buildRoomMap(_deviceConfigs);
   }
 
-  void toggleDevice(DeviceConfig device) async {
-    _loadingDevices.add(device.name);
+  Future<void> _toggleEntity(String entityKey, PowerAction action) async {
+    _loadingDevices.add(entityKey);
     notifyListeners();
+
+    final result = await LightingService.I.controlDevice(entityKey, action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        _updateDevicesAndRooms(updatedDevices);
+      case Failure():
+        break;
+    }
+
+    _loadingDevices.remove(entityKey);
+    notifyListeners();
+  }
+
+  void toggleDevice(DeviceConfig device) {
     final action = device.powerState == PowerState.on_
         ? PowerAction.off
         : PowerAction.on_;
-
-    final result = await LightingService.I.controlDevice(device.name, action);
-    switch (result) {
-      case Success(value: final updatedDevices):
-        _updateDevicesAndRooms(updatedDevices);
-      case Failure():
-        break;
-    }
-
-    _loadingDevices.remove(device.name);
-    notifyListeners();
+    _toggleEntity(device.name, action);
   }
 
-  void toggleRoom(String room) async {
-    _loadingDevices.add(room);
-    notifyListeners();
-
-    //TODO
-
-    _loadingDevices.remove(room);
-    notifyListeners();
+  void toggleRoom(String room) {
+    final action = _roomsPowerMap[room] == true
+        ? PowerAction.off
+        : PowerAction.on_;
+    _toggleEntity(room, action);
   }
 
-  void toggleHome() async {
-    _loadingDevices.add('Home');
-    notifyListeners();
-
+  void toggleHome() {
     final action = _homeIsOn ? PowerAction.off : PowerAction.on_;
-
-    final result = await LightingService.I.controlDevice('home', action);
-    switch (result) {
-      case Success(value: final updatedDevices):
-        _updateDevicesAndRooms(updatedDevices);
-      case Failure():
-        break;
-    }
-
-    _loadingDevices.remove('Home');
-    notifyListeners();
+    _toggleEntity('home', action);
   }
 }
