@@ -26,16 +26,9 @@ class LightingProvider extends ChangeNotifier {
   bool get hasError => _hasError;
   bool get homeIsOn => _homeIsOn;
   void _setHomeIsOn() {
-    bool findValue() {
-      for (var device in _deviceConfigs) {
-        if (device.powerState == PowerState.on_) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    _homeIsOn = findValue();
+    _homeIsOn = _deviceConfigs.any(
+      (device) => device.powerState == PowerState.on_,
+    );
   }
 
   Future<void> _initAsync() async {
@@ -60,12 +53,14 @@ class LightingProvider extends ChangeNotifier {
     for (var device in devices) {
       final room = device.room ?? Room.livingRoom;
       groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
-      if (_roomsPowerMap[room] != true) {
-        _roomsPowerMap[room] = device.powerState == PowerState.on_;
-      }
     }
-    for (var deviceList in groupedRooms.values) {
+    for (var entry in groupedRooms.entries) {
+      final deviceList = entry.value;
       deviceList.sort((a, b) => a.name.compareTo(b.name));
+      bool roomIsOn = deviceList.any(
+        (device) => device.powerState == PowerState.on_,
+      );
+      _roomsPowerMap[entry.key] = roomIsOn;
     }
     final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
       groupedRooms.entries.toList()
