@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:haven/services/lighting_service.dart';
 import 'package:haven/utils/extensions.dart';
@@ -7,8 +8,11 @@ import 'package:home_api_client/home_api_client.dart';
 class LightingProvider extends ChangeNotifier {
   List<DeviceConfig> _deviceConfigs = [];
   Map<Room, List<DeviceConfig>> _roomsMap = {};
+  final Set<String> _loadingDevices = {};
+  final Map<Room, bool> _roomsPowerMap = {};
   bool _loading = false;
   bool _hasError = false;
+  bool _homeIsOn = false;
 
   LightingProvider() {
     _initAsync();
@@ -16,8 +20,23 @@ class LightingProvider extends ChangeNotifier {
 
   List<DeviceConfig> get devices => _deviceConfigs;
   Map<Room, List<DeviceConfig>> get roomsMap => _roomsMap;
+  Set<String> get loadingDevices => _loadingDevices;
+  Map<Room, bool> get roomsPowerMap => _roomsPowerMap;
   bool get loading => _loading;
   bool get hasError => _hasError;
+  bool get homeIsOn => _homeIsOn;
+  void _setHomeIsOn() {
+    bool findValue() {
+      for (var device in _deviceConfigs) {
+        if (device.powerState == PowerState.on_) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    _homeIsOn = findValue();
+  }
 
   Future<void> _initAsync() async {
     _loading = true;
@@ -27,17 +46,88 @@ class LightingProvider extends ChangeNotifier {
     switch (response) {
       case Success(value: final devices):
         _deviceConfigs = devices;
-        final Map<Room, List<DeviceConfig>> groupedRooms = {};
-        for (var device in devices) {
-          final room = device.room ?? Room.livingRoom;
-          groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
-        }
-        _roomsMap = groupedRooms;
+        _buildRoomMap(devices);
       case Failure():
         _hasError = true;
     }
 
     _loading = false;
+    notifyListeners();
+  }
+
+  void _buildRoomMap(List<DeviceConfig> devices) {
+    final Map<Room, List<DeviceConfig>> groupedRooms = {};
+    for (var device in devices) {
+      final room = device.room ?? Room.livingRoom;
+      groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
+      if (_roomsPowerMap[room] != true) {
+        _roomsPowerMap[room] = device.powerState == PowerState.on_;
+      }
+    }
+    for (var deviceList in groupedRooms.values) {
+      deviceList.sort((a, b) => a.name.compareTo(b.name));
+    }
+    final sortedRooms = LinkedHashMap<Room, List<DeviceConfig>>.fromEntries(
+      groupedRooms.entries.toList()
+        ..sort((a, b) => a.key.name.compareTo(b.key.name)),
+    );
+    _setHomeIsOn();
+    _roomsMap = sortedRooms;
+  }
+
+  void _updateDevicesAndRooms(List<DeviceConfig> updatedDevices) {
+    final updatedNames = updatedDevices.map((d) => d.name).toSet();
+    _deviceConfigs = [
+      ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
+      ...updatedDevices,
+    ];
+    _buildRoomMap(_deviceConfigs);
+  }
+
+  void toggleDevice(DeviceConfig device) async {
+    _loadingDevices.add(device.name);
+    notifyListeners();
+    final action = device.powerState == PowerState.on_
+        ? PowerAction.off
+        : PowerAction.on_;
+
+    final result = await LightingService.I.controlDevice(device.name, action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        _updateDevicesAndRooms(updatedDevices);
+      case Failure():
+        break;
+    }
+
+    _loadingDevices.remove(device.name);
+    notifyListeners();
+  }
+
+  void toggleRoom(Room room) async {
+    _loadingDevices.add(room.name);
+    notifyListeners();
+
+    //TODO
+
+    _loadingDevices.remove(room.name);
+    notifyListeners();
+  }
+
+  void toggleHome() async {
+    _loadingDevices.add('Home');
+    notifyListeners();
+
+    final action = _homeIsOn ? PowerAction.off : PowerAction.on_;
+
+    final result = await LightingService.I.controlDevice('home', action);
+    switch (result) {
+      case Success(value: final updatedDevices):
+        _updateDevicesAndRooms(updatedDevices);
+      case Failure():
+        break;
+    }
+
+    _loadingDevices.remove('Home');
     notifyListeners();
   }
 }

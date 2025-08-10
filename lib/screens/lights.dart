@@ -14,6 +14,29 @@ class Lights extends StatelessWidget {
 
     List<Widget> groups = [];
 
+    groups.add(
+      Padding(
+        padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+        child: FTileGroup(
+          children: [
+            FTile(
+              title: const Text('Home'),
+              prefix: Icon(
+                Icons.power_settings_new,
+                color: provider.homeIsOn
+                    ? context.colorScheme.primary
+                    : context.colorScheme.secondary,
+              ),
+              suffix: provider.loadingDevices.contains('Home')
+                  ? CupertinoActivityIndicator()
+                  : null,
+              onPress: () => provider.toggleHome(),
+            ),
+          ],
+        ),
+      ),
+    );
+
     for (var group in provider.roomsMap.entries) {
       if (group.value.isEmpty) continue;
 
@@ -29,6 +52,29 @@ class Lights extends StatelessWidget {
                   ? context.colorScheme.primary
                   : context.colorScheme.secondary,
             ),
+            suffix: provider.loadingDevices.contains(config.name)
+                ? CupertinoActivityIndicator()
+                : null,
+            onPress: () => provider.toggleDevice(config),
+          ),
+        );
+      }
+
+      if (children.length > 1) {
+        children.insert(
+          0,
+          FTile(
+            title: const Text('All'),
+            prefix: Icon(
+              Icons.power_settings_new,
+              color: provider.roomsPowerMap[group.key] == true
+                  ? context.colorScheme.primary
+                  : context.colorScheme.secondary,
+            ),
+            suffix: provider.loadingDevices.contains(group.key.name)
+                ? CupertinoActivityIndicator()
+                : null,
+            onPress: () => provider.toggleRoom(group.key),
           ),
         );
       }
@@ -50,7 +96,7 @@ class Lights extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 32.0,
-              vertical: 24.0,
+              vertical: 16.0,
             ),
             child: Row(
               children: [
