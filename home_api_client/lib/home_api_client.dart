@@ -31,7 +31,6 @@ export 'package:home_api_client/src/model/get_users_response.dart';
 export 'package:home_api_client/src/model/http_validation_error.dart';
 export 'package:home_api_client/src/model/power_action.dart';
 export 'package:home_api_client/src/model/power_state.dart';
-export 'package:home_api_client/src/model/room.dart';
 export 'package:home_api_client/src/model/validation_error.dart';
 export 'package:home_api_client/src/model/validation_error_loc_inner.dart';
 

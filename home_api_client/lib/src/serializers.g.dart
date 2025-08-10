@@ -22,7 +22,6 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(HTTPValidationError.serializer)
       ..add(PowerAction.serializer)
       ..add(PowerState.serializer)
-      ..add(Room.serializer)
       ..add(ValidationError.serializer)
       ..add(ValidationErrorLocInner.serializer)
       ..addBuilderFactory(

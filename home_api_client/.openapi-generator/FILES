@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 analysis_options.yaml
 doc/ApplyThemeRequest.md
@@ -20,7 +19,6 @@ doc/HTTPValidationError.md
 doc/LightingApi.md
 doc/PowerAction.md
 doc/PowerState.md
-doc/Room.md
 doc/ThemesApi.md
 doc/UsersApi.md
 doc/ValidationError.md
@@ -55,7 +53,6 @@ lib/src/model/get_users_response.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/power_action.dart
 lib/src/model/power_state.dart
-lib/src/model/room.dart
 lib/src/model/validation_error.dart
 lib/src/model/validation_error_loc_inner.dart
 lib/src/serializers.dart
@@ -78,7 +75,6 @@ test/http_validation_error_test.dart
 test/lighting_api_test.dart
 test/power_action_test.dart
 test/power_state_test.dart
-test/room_test.dart
 test/themes_api_test.dart
 test/users_api_test.dart
 test/validation_error_loc_inner_test.dart
