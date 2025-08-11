@@ -46,5 +46,7 @@ class ThemesProvider extends ChangeNotifier {
     _themes = map;
   }
 
-  Future<void> applyTheme(String colors) async {}
+  Future<void> applyTheme(String colors) async {
+    final result = await ThemeService.I.applyTheme(colors);
+  }
 }
