@@ -27,4 +27,23 @@ class ThemeService {
       return Failure(Exception('Failed to read themes: $e'));
     }
   }
+
+  Future<Result<List<DeviceConfig>, Exception>> applyTheme(String theme) async {
+    try {
+      final api = _client.getThemesApi();
+
+      final req = ApplyThemeRequestBuilder()..colors = theme;
+
+      final response = await api.applyThemeThemesApplyPost(
+        applyThemeRequest: req.build(),
+      );
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.devices.toList());
+    } catch (e) {
+      return Failure(Exception('Failed to apply theme: $e'));
+    }
+  }
 }
