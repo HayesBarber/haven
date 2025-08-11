@@ -10,6 +10,7 @@ class ThemeBoxes extends StatelessWidget {
     List<Widget> boxes = colors
         .map(
           (c) => Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 25,
@@ -24,6 +25,6 @@ class ThemeBoxes extends StatelessWidget {
           ),
         )
         .toList();
-    return Row(children: boxes);
+    return Row(mainAxisSize: MainAxisSize.min, children: boxes);
   }
 }
