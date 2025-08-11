@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/widgets/bottom_navigation_bar.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/providers/nav_bar_provider.dart';
+import 'package:haven/providers/themes_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainNavigation extends StatelessWidget {
@@ -12,6 +13,7 @@ class MainNavigation extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => NavBarProvider()),
         ChangeNotifierProvider(create: (_) => LightingProvider()),
+        ChangeNotifierProvider(create: (_) => ThemesProvider()),
       ],
       child: PageStack(),
     );
