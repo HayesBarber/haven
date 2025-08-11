@@ -16,8 +16,11 @@ class Themes extends StatelessWidget {
       child: FTileGroup(
         children: [
           ...provider.themes.entries.map(
-            (entry) =>
-                _buildThemeTile(title: entry.key, colors: entry.value.$2),
+            (entry) => _buildThemeTile(
+              title: entry.key,
+              colors: entry.value.$2,
+              onPress: () => provider.applyTheme(entry.value.$1),
+            ),
           ),
         ],
       ),
@@ -33,10 +36,15 @@ class Themes extends StatelessWidget {
     );
   }
 
-  FTile _buildThemeTile({required String title, required List<Color> colors}) {
+  FTile _buildThemeTile({
+    required String title,
+    required List<Color> colors,
+    required VoidCallback onPress,
+  }) {
     return FTile(
       title: Text(title),
       suffix: ThemeBoxes(colors: colors),
+      onPress: onPress,
     );
   }
 }
