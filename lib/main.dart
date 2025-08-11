@@ -4,13 +4,18 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/screens/main_navigation.dart';
 import 'package:haven/screens/splash.dart';
+import 'package:haven/services/api_key_service.dart';
 import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Future.wait([dotenv.load(), AppConfig.I.initAsync()]);
+  await Future.wait([
+    dotenv.load(),
+    AppConfig.I.initAsync(),
+    ApiKeyService.I.initAsync(),
+  ]);
 
   LOGGER.log('Loaded env: ${dotenv.env}');
 
