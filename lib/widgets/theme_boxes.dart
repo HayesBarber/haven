@@ -20,7 +20,7 @@ class ThemeBoxes extends StatelessWidget {
                   color: c,
                 ),
               ),
-              const SizedBox(width: 5),
+              const SizedBox(width: 8),
             ],
           ),
         )

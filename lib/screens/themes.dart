@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/themes_provider.dart';
@@ -19,7 +20,8 @@ class Themes extends StatelessWidget {
             (entry) => _buildThemeTile(
               title: entry.key,
               colors: entry.value.$2,
-              onPress: () => provider.applyTheme(entry.value.$1),
+              isLoading: provider.loadingThemes.contains(entry.key),
+              onPress: () => provider.applyTheme(entry.key, entry.value.$1),
             ),
           ),
         ],
@@ -40,10 +42,17 @@ class Themes extends StatelessWidget {
     required String title,
     required List<Color> colors,
     required VoidCallback onPress,
+    required bool isLoading,
   }) {
     return FTile(
       title: Text(title),
-      suffix: ThemeBoxes(colors: colors),
+      suffix: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (isLoading) ...[CupertinoActivityIndicator(), SizedBox(width: 8)],
+          ThemeBoxes(colors: colors),
+        ],
+      ),
       onPress: onPress,
     );
   }

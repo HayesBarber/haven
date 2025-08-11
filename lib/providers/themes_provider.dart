@@ -5,6 +5,7 @@ import 'package:haven/utils/result.dart';
 
 class ThemesProvider extends ChangeNotifier {
   Map<String, (String, List<Color>)> _themes = {};
+  final Set<String> _loadingThemes = {};
   bool _loading = false;
   bool _hasError = false;
 
@@ -13,6 +14,7 @@ class ThemesProvider extends ChangeNotifier {
   }
 
   Map<String, (String, List<Color>)> get themes => _themes;
+  Set<String> get loadingThemes => _loadingThemes;
   bool get loading => _loading;
   bool get hasError => _hasError;
 
@@ -46,7 +48,20 @@ class ThemesProvider extends ChangeNotifier {
     _themes = map;
   }
 
-  Future<void> applyTheme(String colors) async {
+  Future<void> applyTheme(String name, String colors) async {
+    _loadingThemes.add(name);
+    notifyListeners();
+
     final result = await ThemeService.I.applyTheme(colors);
+
+    switch (result) {
+      case Success(value: final updatedDevices):
+        break;
+      case Failure():
+        break;
+    }
+
+    _loadingThemes.remove(name);
+    notifyListeners();
   }
 }
