@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/widgets/bottom_navigation_bar.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/providers/nav_bar_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,18 @@ class PageStack extends StatelessWidget {
       body: Stack(
         children: [
           IndexedStack(index: provider.selectedIndex, children: provider.pages),
+        ],
+      ),
+      bottomNavigationBar: FBottomNavigationBar(
+        index: provider.selectedIndex,
+        onChange: provider.setIndex,
+        children: [
+          ...provider.icons.map(
+            (e) => FBottomNavigationBarItem(
+              icon: Icon(e.icon),
+              label: Text(e.title),
+            ),
+          ),
         ],
       ),
     );
