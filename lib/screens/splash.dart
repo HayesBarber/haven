@@ -35,6 +35,16 @@ class Splash extends StatelessWidget {
             ),
           ),
           Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsetsGeometry.only(bottom: 64),
+              child: SizedBox(
+                width: 256,
+                child: const Image(image: AssetImage('images/haven.png')),
+              ),
+            ),
+          ),
+          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
