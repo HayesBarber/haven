@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui/widgets/button.dart';
 import 'package:haven/flow_registry.dart';
+import 'package:haven/utils/extensions.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -9,19 +12,41 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  "Haven",
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: Image(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('images/splash_image.png'),
+            ),
+          ),
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+            child: Container(color: Colors.black.withValues(alpha: 0)),
+          ),
+          Container(
+            height: context.sh,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.transparent, Colors.black],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
-            Padding(
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsetsGeometry.only(bottom: 64),
+              child: SizedBox(
+                width: 256,
+                child: const Image(image: AssetImage('images/haven.png')),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
               child: FButton(
                 onPress: () {
@@ -30,8 +55,8 @@ class Splash extends StatelessWidget {
                 child: Text("Get Started"),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
