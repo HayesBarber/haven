@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/utils/extensions.dart';
+import 'package:haven/widgets/scaffold_title.dart';
 import 'package:home_api_client/home_api_client.dart';
 import 'package:provider/provider.dart';
 
@@ -75,21 +76,7 @@ class Lights extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32.0,
-              vertical: 16.0,
-            ),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Text('Lights', style: context.textTheme.displayMedium),
-                ),
-                if (provider.loading) CupertinoActivityIndicator(),
-              ],
-            ),
-          ),
+          ScaffoldTitle(title: 'Lights', loading: provider.loading),
           ...groups,
         ],
       ),
