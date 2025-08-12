@@ -112,4 +112,9 @@ class LightingProvider extends ChangeNotifier {
     final action = _homeIsOn ? PowerAction.off : PowerAction.on_;
     _toggleEntity('home', action);
   }
+
+  void updateDevicesFromTheme(List<DeviceConfig> updatedDevices) {
+    _updateDevicesAndRooms(updatedDevices);
+    notifyListeners();
+  }
 }

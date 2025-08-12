@@ -13,7 +13,14 @@ class MainNavigation extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => NavBarProvider()),
         ChangeNotifierProvider(create: (_) => LightingProvider()),
-        ChangeNotifierProvider(create: (_) => ThemesProvider()),
+        ChangeNotifierProxyProvider<LightingProvider, ThemesProvider>(
+          create: (_) => ThemesProvider(),
+          update: (_, lighting, themes) {
+            themes ??= ThemesProvider();
+            themes.setLightingProvider(lighting);
+            return themes;
+          },
+        ),
       ],
       child: PageStack(),
     );

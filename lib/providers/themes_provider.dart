@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/services/theme_service.dart';
 import 'package:haven/utils/color_util.dart';
 import 'package:haven/utils/result.dart';
+import 'package:home_api_client/home_api_client.dart';
 
 class ThemesProvider extends ChangeNotifier {
   Map<String, (String, List<Color>)> _themes = {};
   final Set<String> _loadingThemes = {};
   bool _loading = false;
   bool _hasError = false;
+  LightingProvider? _lightingProvider;
 
   ThemesProvider() {
     _initAsync();
@@ -17,6 +20,9 @@ class ThemesProvider extends ChangeNotifier {
   Set<String> get loadingThemes => _loadingThemes;
   bool get loading => _loading;
   bool get hasError => _hasError;
+  void setLightingProvider(LightingProvider provider) {
+    _lightingProvider = provider;
+  }
 
   Future<void> _initAsync() async {
     _loading = true;
@@ -48,6 +54,10 @@ class ThemesProvider extends ChangeNotifier {
     _themes = map;
   }
 
+  void _notifyLighting(List<DeviceConfig> updatedDevices) {
+    _lightingProvider?.updateDevicesFromTheme(updatedDevices);
+  }
+
   Future<void> applyTheme(String name, String colors) async {
     _loadingThemes.add(name);
     notifyListeners();
@@ -56,7 +66,7 @@ class ThemesProvider extends ChangeNotifier {
 
     switch (result) {
       case Success(value: final updatedDevices):
-        break;
+        _notifyLighting(updatedDevices);
       case Failure():
         break;
     }
