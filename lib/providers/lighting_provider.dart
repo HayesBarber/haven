@@ -48,6 +48,10 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> refresh() async {
+    await _initAsync();
+  }
+
   void _buildRoomMap(List<DeviceConfig> devices) {
     final Map<String, List<DeviceConfig>> groupedRooms = {};
     for (var device in devices) {
