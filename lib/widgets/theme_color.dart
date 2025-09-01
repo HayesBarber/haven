@@ -10,6 +10,7 @@ class ThemeColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         Container(
           width: 64,
@@ -17,14 +18,37 @@ class ThemeColor extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         Container(
-          width: 25,
-          height: 25,
+          width: 60,
+          height: 60,
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: context.colorScheme.surface,
             shape: BoxShape.circle,
-            border: Border.all(color: context.colorScheme.surface, width: 2),
           ),
-          child: Icon(Icons.remove, color: Colors.black),
+        ),
+        Container(
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: Transform.translate(
+            offset: const Offset(4, -4),
+            child: Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: context.colorScheme.surface,
+                  width: 2,
+                ),
+              ),
+              child: Icon(Icons.remove, color: Colors.black),
+            ),
+          ),
         ),
       ],
     );
