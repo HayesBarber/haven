@@ -6,8 +6,11 @@ class CreateThemeEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: const ExitButton()),
-      body: SizedBox.expand(child: Center(child: Text("Create theme"))),
+      appBar: AppBar(
+        leading: const ExitButton(),
+        title: Text('New Theme'),
+        centerTitle: true,
+      ),
     );
   }
 }
