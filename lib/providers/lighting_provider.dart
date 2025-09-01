@@ -13,6 +13,7 @@ class LightingProvider extends ChangeNotifier {
   bool _loading = false;
   bool _hasError = false;
   bool _homeIsOn = false;
+  bool _refreshing = false;
 
   LightingProvider() {
     _initAsync();
@@ -23,6 +24,7 @@ class LightingProvider extends ChangeNotifier {
   Set<String> get loadingDevices => _loadingDevices;
   Map<String, bool> get roomsPowerMap => _roomsPowerMap;
   bool get loading => _loading;
+  bool get refreshing => _refreshing;
   bool get hasError => _hasError;
   bool get homeIsOn => _homeIsOn;
   void _setHomeIsOn() {
@@ -49,9 +51,13 @@ class LightingProvider extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
-    await Future.delayed(5.seconds);
+    _refreshing = true;
+    notifyListeners();
 
-    // await _initAsync();
+    await _initAsync();
+
+    _refreshing = false;
+    notifyListeners();
   }
 
   void _buildRoomMap(List<DeviceConfig> devices) {

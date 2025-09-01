@@ -79,7 +79,10 @@ class Lights extends StatelessWidget {
         onRefresh: provider.refresh,
         child: ListView(
           children: [
-            ScaffoldTitle(title: 'Lights', loading: provider.loading),
+            ScaffoldTitle(
+              title: 'Lights',
+              loading: provider.loading && !provider.refreshing,
+            ),
             ...groups,
           ],
         ),
