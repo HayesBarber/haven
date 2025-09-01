@@ -15,7 +15,17 @@ class CreateThemeEntry extends StatelessWidget {
             Spacer(),
             Padding(
               padding: Styles.buttonPadding,
-              child: FButton(onPress: () {}, child: Text('Next')),
+              child: Column(
+                children: [
+                  FButton(
+                    style: FButtonStyle.secondary(),
+                    onPress: () {},
+                    child: Text('Test'),
+                  ),
+                  SizedBox(height: 16),
+                  FButton(onPress: () {}, child: Text('Next')),
+                ],
+              ),
             ),
           ],
         ),
