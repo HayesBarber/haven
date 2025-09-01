@@ -3,6 +3,7 @@ import 'package:forui/widgets/button.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/exit_button.dart';
+import 'package:haven/widgets/pick_color.dart';
 import 'package:haven/widgets/theme_color.dart';
 
 class CreateThemeEntry extends StatelessWidget {
@@ -25,7 +26,9 @@ class CreateThemeEntry extends StatelessWidget {
                 SizedBox(
                   width: context.sw * .5,
                   child: FButton(
-                    onPress: () {},
+                    onPress: () {
+                      PickColor.pick(context);
+                    },
                     style: FButtonStyle.outline(),
                     child: Text('Add Color'),
                   ),
