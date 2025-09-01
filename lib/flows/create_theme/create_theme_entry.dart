@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/widgets/button.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/exit_button.dart';
 
@@ -12,6 +13,19 @@ class CreateThemeEntry extends StatelessWidget {
       body: SizedBox.expand(
         child: Column(
           children: [
+            Spacer(),
+            Column(
+              children: [
+                SizedBox(
+                  width: context.sw * .5,
+                  child: FButton(
+                    onPress: () {},
+                    style: FButtonStyle.outline(),
+                    child: Text('Add Color'),
+                  ),
+                ),
+              ],
+            ),
             Spacer(),
             Padding(
               padding: Styles.buttonPadding,
