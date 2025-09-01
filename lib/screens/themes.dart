@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/themes_provider.dart';
 import 'package:haven/widgets/refreshable_scaffold.dart';
@@ -10,6 +11,19 @@ class Themes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemesProvider>(context);
+
+    final newTheme = Padding(
+      padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+      child: FTileGroup(
+        children: [
+          FTile(
+            title: Text('New Theme'),
+            prefix: Icon(Icons.add),
+            onPress: () {},
+          ),
+        ],
+      ),
+    );
 
     final themesGroup = Padding(
       padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
@@ -32,7 +46,7 @@ class Themes extends StatelessWidget {
       loading: provider.loading,
       refreshing: provider.refreshing,
       onRefresh: provider.refresh,
-      children: [themesGroup],
+      children: [newTheme, themesGroup],
     );
   }
 
