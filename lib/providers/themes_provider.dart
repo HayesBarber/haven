@@ -9,6 +9,7 @@ class ThemesProvider extends ChangeNotifier {
   Map<String, (String, List<Color>)> _themes = {};
   final Set<String> _loadingThemes = {};
   bool _loading = false;
+  bool _refreshing = false;
   bool _hasError = false;
   LightingProvider? _lightingProvider;
 
@@ -19,6 +20,7 @@ class ThemesProvider extends ChangeNotifier {
   Map<String, (String, List<Color>)> get themes => _themes;
   Set<String> get loadingThemes => _loadingThemes;
   bool get loading => _loading;
+  bool get refreshing => _refreshing;
   bool get hasError => _hasError;
   void setLightingProvider(LightingProvider provider) {
     _lightingProvider = provider;
@@ -38,6 +40,16 @@ class ThemesProvider extends ChangeNotifier {
     }
 
     _loading = false;
+    notifyListeners();
+  }
+
+  Future<void> refresh() async {
+    _refreshing = true;
+    notifyListeners();
+
+    await _initAsync();
+
+    _refreshing = false;
     notifyListeners();
   }
 
