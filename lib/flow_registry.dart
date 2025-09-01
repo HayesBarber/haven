@@ -18,6 +18,7 @@ class FlowRegistry {
         return FlowStarter.start(
           providerBuilder: (key) => CreateThemeProvider(navKey: key),
           childBuilder: (context) => CreateThemeEntry(),
+          slideBottom: true,
         );
     }
   }

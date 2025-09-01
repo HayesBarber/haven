@@ -20,7 +20,9 @@ class Themes extends StatelessWidget {
           FTile(
             title: Text('New Theme'),
             prefix: Icon(Icons.add),
-            onPress: () {},
+            onPress: () {
+              provider.createNewTheme();
+            },
           ),
         ],
       ),
