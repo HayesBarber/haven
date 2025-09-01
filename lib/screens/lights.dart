@@ -74,11 +74,14 @@ class Lights extends StatelessWidget {
     }
 
     return Scaffold(
-      body: ListView(
-        children: [
-          ScaffoldTitle(title: 'Lights', loading: provider.loading),
-          ...groups,
-        ],
+      body: RefreshIndicator(
+        onRefresh: provider.refresh,
+        child: ListView(
+          children: [
+            ScaffoldTitle(title: 'Lights', loading: provider.loading),
+            ...groups,
+          ],
+        ),
       ),
     );
   }

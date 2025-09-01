@@ -49,7 +49,9 @@ class LightingProvider extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
-    await _initAsync();
+    await Future.delayed(5.seconds);
+
+    // await _initAsync();
   }
 
   void _buildRoomMap(List<DeviceConfig> devices) {
