@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/utils/extensions.dart';
-import 'package:haven/widgets/scaffold_title.dart';
+import 'package:haven/widgets/refreshable_scaffold.dart';
 import 'package:home_api_client/home_api_client.dart';
 import 'package:provider/provider.dart';
 
@@ -73,13 +73,12 @@ class Lights extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      body: ListView(
-        children: [
-          ScaffoldTitle(title: 'Lights', loading: provider.loading),
-          ...groups,
-        ],
-      ),
+    return RefreshableScaffold(
+      title: 'Lights',
+      loading: provider.loading,
+      refreshing: provider.refreshing,
+      onRefresh: provider.refresh,
+      children: groups,
     );
   }
 

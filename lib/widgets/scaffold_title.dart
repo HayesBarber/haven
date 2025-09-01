@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:haven/utils/extensions.dart';
 
 class ScaffoldTitle extends StatelessWidget {
@@ -17,7 +17,12 @@ class ScaffoldTitle extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: Text(title, style: context.textTheme.displayMedium),
           ),
-          if (loading) CupertinoActivityIndicator(),
+          if (loading)
+            SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator.adaptive(),
+            ),
         ],
       ),
     );
