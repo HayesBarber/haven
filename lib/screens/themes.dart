@@ -29,11 +29,18 @@ class Themes extends StatelessWidget {
     );
 
     return Scaffold(
-      body: ListView(
-        children: [
-          ScaffoldTitle(title: 'Themes', loading: provider.loading),
-          themesGroup,
-        ],
+      body: RefreshIndicator.adaptive(
+        displacement: 70,
+        onRefresh: provider.refresh,
+        child: ListView(
+          children: [
+            ScaffoldTitle(
+              title: 'Themes',
+              loading: provider.loading && !provider.refreshing,
+            ),
+            themesGroup,
+          ],
+        ),
       ),
     );
   }
