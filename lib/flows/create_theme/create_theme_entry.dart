@@ -3,6 +3,7 @@ import 'package:forui/widgets/button.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/exit_button.dart';
+import 'package:haven/widgets/theme_color.dart';
 
 class CreateThemeEntry extends StatelessWidget {
   const CreateThemeEntry({super.key});
@@ -16,6 +17,11 @@ class CreateThemeEntry extends StatelessWidget {
             Spacer(),
             Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [ThemeColor(color: Colors.red, onRemove: () {})],
+                ),
+                SizedBox(height: 24),
                 SizedBox(
                   width: context.sw * .5,
                   child: FButton(
