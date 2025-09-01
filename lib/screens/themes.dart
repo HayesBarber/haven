@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/themes_provider.dart';
-import 'package:haven/widgets/scaffold_title.dart';
+import 'package:haven/widgets/refreshable_scaffold.dart';
 import 'package:haven/widgets/theme_boxes.dart';
 import 'package:provider/provider.dart';
 
@@ -28,20 +27,12 @@ class Themes extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-      body: RefreshIndicator.adaptive(
-        displacement: 70,
-        onRefresh: provider.refresh,
-        child: ListView(
-          children: [
-            ScaffoldTitle(
-              title: 'Themes',
-              loading: provider.loading && !provider.refreshing,
-            ),
-            themesGroup,
-          ],
-        ),
-      ),
+    return RefreshableScaffold(
+      title: 'Themes',
+      loading: provider.loading,
+      refreshing: provider.refreshing,
+      onRefresh: provider.refresh,
+      children: [themesGroup],
     );
   }
 
