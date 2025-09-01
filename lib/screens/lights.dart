@@ -75,7 +75,7 @@ class Lights extends StatelessWidget {
 
     return Scaffold(
       body: RefreshIndicator.adaptive(
-        displacement: 60,
+        displacement: 70,
         onRefresh: provider.refresh,
         child: ListView(
           children: [
