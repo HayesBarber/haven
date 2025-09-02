@@ -12,6 +12,7 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   final List<Color> _colors = [const Color(0xFFff0000)];
   String _name = '';
   bool _errorCreatingTheme = false;
+  bool _loading = false;
 
   CreateThemeProvider({required super.navKey});
 
@@ -20,6 +21,7 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   bool get canRemove => _colors.length > 1;
   bool get canFinish => _name.trim().isNotEmpty;
   bool get errorCreatingTheme => _errorCreatingTheme;
+  bool get loading => _loading;
 
   void addColor(BuildContext context) {
     if (!canAdd) return;
@@ -70,8 +72,13 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   void finish() async {
     if (!canFinish) return;
 
+    _loading = true;
+    notifyListeners();
+
     String theme = ColorUtil.colorsToCommaDelimitedString(_colors);
     final result = await ThemeService.I.createTheme(_name, theme);
+
+    _loading = false;
 
     switch (result) {
       case Success(value: final value):

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/flows/create_theme/provider/create_theme_provider.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:provider/provider.dart';
 
@@ -36,13 +37,29 @@ class NameTheme extends StatelessWidget {
           const Spacer(),
           Padding(
             padding: Styles.buttonPadding,
-            child: FButton(
-              onPress: provider.canFinish
-                  ? () {
-                      provider.finish();
-                    }
-                  : null,
-              child: const Text("Finish"),
+            child: Column(
+              children: [
+                if (provider.errorCreatingTheme) ...[
+                  Text(
+                    'Error creating theme',
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      color: context.colorScheme.error,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+                FButton(
+                  prefix: provider.loading
+                      ? const FProgress.circularIcon()
+                      : null,
+                  onPress: provider.canFinish
+                      ? () {
+                          provider.finish();
+                        }
+                      : null,
+                  child: const Text("Finish"),
+                ),
+              ],
             ),
           ),
         ],
