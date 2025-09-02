@@ -88,7 +88,13 @@ class ThemesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createNewTheme() {
-    FlowRegistry.startFlow(Flows.createTheme);
+  void createNewTheme() async {
+    Map<String, String>? result = await FlowRegistry.startFlow(
+      Flows.createTheme,
+    );
+
+    if (result == null) return;
+
+    _buildColorMap(result);
   }
 }
