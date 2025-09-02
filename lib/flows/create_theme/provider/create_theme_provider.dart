@@ -1,6 +1,8 @@
 import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:haven/flows/create_theme/name_theme.dart';
+import 'package:haven/services/theme_service.dart';
+import 'package:haven/utils/color_util.dart';
 import 'package:haven/widgets/pick_color.dart';
 
 typedef ColorCallback = void Function(Color color);
@@ -53,7 +55,10 @@ class CreateThemeProvider extends NestedNavigatorProvider {
     callback(color);
   }
 
-  void testTheme() {}
+  void testTheme() {
+    String theme = ColorUtil.colorsToCommaDelimitedString(_colors);
+    ThemeService.I.applyTheme(theme);
+  }
 
   void createThemeName() {
     push(const NameTheme());
