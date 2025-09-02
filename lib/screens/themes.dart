@@ -94,7 +94,7 @@ class Themes extends StatelessWidget {
                 provider.deleteTheme(title);
                 Navigator.of(context).pop();
               },
-              child: const Text('Continue'),
+              child: const Text('Delete'),
             ),
           ],
         ),
