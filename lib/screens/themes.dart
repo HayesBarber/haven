@@ -86,7 +86,9 @@ class Themes extends StatelessWidget {
           actions: [
             FButton(
               style: FButtonStyle.outline(),
-              onPress: () => Navigator.of(context).pop(),
+              onPress: () {
+                Navigator.of(context).pop();
+              },
               child: const Text('Cancel'),
             ),
             FButton(
