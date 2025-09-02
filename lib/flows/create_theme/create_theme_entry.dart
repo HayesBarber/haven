@@ -31,6 +31,9 @@ class CreateThemeEntry extends StatelessWidget {
                           onRemove: () {
                             provider.removeColor(i);
                           },
+                          onTap: () {
+                            provider.editColor(context, i);
+                          },
                         ),
                       ),
                     ),

@@ -4,8 +4,14 @@ import 'package:haven/utils/extensions.dart';
 class ThemeColor extends StatelessWidget {
   final Color color;
   final VoidCallback onRemove;
+  final VoidCallback onTap;
 
-  const ThemeColor({super.key, required this.color, required this.onRemove});
+  const ThemeColor({
+    super.key,
+    required this.color,
+    required this.onRemove,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +31,13 @@ class ThemeColor extends StatelessWidget {
             shape: BoxShape.circle,
           ),
         ),
-        Container(
-          width: 55,
-          height: 55,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            width: 55,
+            height: 55,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
         ),
         Positioned(
           top: 0,
