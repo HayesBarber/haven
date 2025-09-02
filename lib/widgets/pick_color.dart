@@ -3,7 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:haven/utils/extensions.dart';
 
 class PickColor {
-  static Future<Color?> pick(BuildContext context) async {
+  static Future<Color?> pick(BuildContext context, Color color) async {
     Color? selected;
 
     await showDialog(
@@ -16,7 +16,7 @@ class PickColor {
           content: SingleChildScrollView(
             child: HueRingPicker(
               portraitOnly: true,
-              pickerColor: Colors.red,
+              pickerColor: color,
               onColorChanged: (color) {
                 selected = color;
               },
