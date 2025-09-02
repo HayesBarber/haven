@@ -35,18 +35,21 @@ class ThemeColor extends StatelessWidget {
           left: 0,
           child: Transform.translate(
             offset: const Offset(-4, -4),
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: context.colorScheme.surface,
-                  width: 2,
+            child: InkWell(
+              onTap: onRemove,
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: context.colorScheme.surface,
+                    width: 2,
+                  ),
                 ),
+                child: Icon(Icons.remove, color: context.colorScheme.surface),
               ),
-              child: Icon(Icons.remove, color: context.colorScheme.surface),
             ),
           ),
         ),
