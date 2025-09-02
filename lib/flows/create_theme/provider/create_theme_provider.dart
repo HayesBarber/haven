@@ -15,6 +15,10 @@ class CreateThemeProvider extends NestedNavigatorProvider {
 
   void addColor(BuildContext context) {
     if (!canAdd) return;
+
+    _colors.add(const Color(0xFFff0000));
+
+    editColor(context, _colors.length - 1);
   }
 
   void removeColor(int i) {
