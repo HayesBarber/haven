@@ -18,6 +18,12 @@ class CreateThemeEntry extends StatelessWidget {
       body: SizedBox.expand(
         child: Column(
           children: [
+            Center(
+              child: Text(
+                "Create Theme",
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+            ),
             Spacer(),
             Column(
               children: [
