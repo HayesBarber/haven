@@ -11,6 +11,7 @@ typedef ColorCallback = void Function(Color color);
 class CreateThemeProvider extends NestedNavigatorProvider {
   final List<Color> _colors = [const Color(0xFFff0000)];
   String _name = '';
+  bool _errorCreatingTheme = false;
 
   CreateThemeProvider({required super.navKey});
 
@@ -18,6 +19,7 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   bool get canAdd => _colors.length < 4;
   bool get canRemove => _colors.length > 1;
   bool get canFinish => _name.trim().isNotEmpty;
+  bool get errorCreatingTheme => _errorCreatingTheme;
 
   void addColor(BuildContext context) {
     if (!canAdd) return;
@@ -75,7 +77,8 @@ class CreateThemeProvider extends NestedNavigatorProvider {
       case Success(value: final value):
         Navigation.I.pop(value);
       case Failure():
-        break;
+        _errorCreatingTheme = true;
+        notifyListeners();
     }
   }
 }
