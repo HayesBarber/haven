@@ -25,7 +25,7 @@ class NameTheme extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: FTextField(
               autofocus: true,
-              textCapitalization: TextCapitalization.sentences,
+              textCapitalization: TextCapitalization.words,
               label: const Text('Theme Name'),
               hint: "Scary Movie",
               maxLines: 1,
