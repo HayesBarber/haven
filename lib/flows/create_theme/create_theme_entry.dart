@@ -67,13 +67,16 @@ class CreateThemeEntry extends StatelessWidget {
                 children: [
                   FButton(
                     style: FButtonStyle.secondary(),
-                    onPress: () {
-                      provider.createThemeName();
-                    },
+                    onPress: () {},
                     child: Text('Test'),
                   ),
                   SizedBox(height: 16),
-                  FButton(onPress: () {}, child: Text('Next')),
+                  FButton(
+                    onPress: () {
+                      provider.createThemeName();
+                    },
+                    child: Text('Next'),
+                  ),
                 ],
               ),
             ),
