@@ -4,7 +4,6 @@ import 'package:haven/flows/create_theme/provider/create_theme_provider.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/exit_button.dart';
-import 'package:haven/widgets/pick_color.dart';
 import 'package:haven/widgets/theme_color.dart';
 import 'package:provider/provider.dart';
 
@@ -22,15 +21,20 @@ class CreateThemeEntry extends StatelessWidget {
             Spacer(),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [ThemeColor(color: Colors.red, onRemove: () {})],
+                Wrap(
+                  children: [
+                    ...provider.colors.map(
+                      (c) => ThemeColor(color: c, onRemove: () {}),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 24),
                 SizedBox(
                   width: context.sw * .5,
                   child: FButton(
-                    onPress: () {},
+                    onPress: () {
+                      provider.addColor(context);
+                    },
                     style: FButtonStyle.outline(),
                     child: Text('Add Color'),
                   ),

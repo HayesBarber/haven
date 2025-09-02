@@ -13,6 +13,14 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   bool get canAdd => _colors.length < 4;
   bool get canRemove => _colors.length > 1;
 
+  void addColor(BuildContext context) {
+    if (!canAdd) return;
+  }
+
+  void removeColor(int i) {
+    if (!canRemove) return;
+  }
+
   void editColor(BuildContext context, int index) {
     _openColorPicker(context, (color) {
       _colors[index] = color;
