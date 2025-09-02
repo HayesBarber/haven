@@ -96,5 +96,6 @@ class ThemesProvider extends ChangeNotifier {
     if (result == null) return;
 
     _buildColorMap(result);
+    notifyListeners();
   }
 }
