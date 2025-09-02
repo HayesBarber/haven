@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/utils/extensions.dart';
+import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/refreshable_scaffold.dart';
 import 'package:home_api_client/home_api_client.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class Lights extends StatelessWidget {
     if (provider.roomsMap.isNotEmpty) {
       groups.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+          padding: Styles.tileGroupPadding,
           child: FTileGroup(
             children: [
               _buildPowerTile(
@@ -67,7 +68,7 @@ class Lights extends StatelessWidget {
 
       groups.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+          padding: Styles.tileGroupPadding,
           child: FTileGroup(label: Text(group.key), children: children),
         ),
       );

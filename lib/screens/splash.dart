@@ -5,6 +5,7 @@ import 'package:forui/forui.dart';
 import 'package:forui/widgets/button.dart';
 import 'package:haven/flow_registry.dart';
 import 'package:haven/utils/extensions.dart';
+import 'package:haven/utils/styles.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -47,7 +48,7 @@ class Splash extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
+              padding: Styles.buttonPadding,
               child: FButton(
                 onPress: () {
                   FlowRegistry.startFlow(Flows.createUser);

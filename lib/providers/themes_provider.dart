@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haven/flow_registry.dart';
 import 'package:haven/providers/lighting_provider.dart';
 import 'package:haven/services/theme_service.dart';
 import 'package:haven/utils/color_util.dart';
@@ -84,6 +85,17 @@ class ThemesProvider extends ChangeNotifier {
     }
 
     _loadingThemes.remove(name);
+    notifyListeners();
+  }
+
+  void createNewTheme() async {
+    Map<String, String>? result = await FlowRegistry.startFlow(
+      Flows.createTheme,
+    );
+
+    if (result == null) return;
+
+    _buildColorMap(result);
     notifyListeners();
   }
 }

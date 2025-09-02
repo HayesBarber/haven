@@ -54,3 +54,12 @@ extension DefaultMap<K, V extends Object> on Map<K, V> {
     return this[key] ?? defaultValue;
   }
 }
+
+extension IterableExtension<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E element, int index) transform) sync* {
+    int index = 0;
+    for (final element in this) {
+      yield transform(element, index++);
+    }
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/flows/create_user/provider/create_user_provider.dart';
 import 'package:haven/utils/extensions.dart';
+import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/ignore_pop.dart';
 import 'package:provider/provider.dart';
 
@@ -35,10 +36,7 @@ class UserCreated extends StatelessWidget {
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 32,
-                  horizontal: 32,
-                ),
+                padding: Styles.buttonPadding,
                 child: FButton(
                   onPress: () {
                     provider.goToAppEntry();
