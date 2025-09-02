@@ -34,6 +34,7 @@ class Themes extends StatelessWidget {
         children: [
           ...provider.themes.entries.map(
             (entry) => _buildThemeTile(
+              context: context,
               title: entry.key,
               colors: entry.value.$2,
               isLoading: provider.loadingThemes.contains(entry.key),
@@ -54,6 +55,7 @@ class Themes extends StatelessWidget {
   }
 
   FTile _buildThemeTile({
+    required BuildContext context,
     required String title,
     required List<Color> colors,
     required VoidCallback onPress,
@@ -69,6 +71,29 @@ class Themes extends StatelessWidget {
         ],
       ),
       onPress: onPress,
+      onLongPress: () => showFDialog(
+        context: context,
+        builder: (context, style, animation) => FDialog(
+          style: (_) => style,
+          animation: animation,
+          direction: Axis.vertical,
+          title: Text('Delete "$title"?'),
+          body: const Text(
+            'This action cannot be undone. This will permanently delete the theme.',
+          ),
+          actions: [
+            FButton(
+              style: FButtonStyle.outline(),
+              onPress: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            FButton(
+              onPress: () => Navigator.of(context).pop(),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
