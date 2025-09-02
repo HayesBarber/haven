@@ -46,6 +46,8 @@ class CreateThemeProvider extends NestedNavigatorProvider {
     callback(color);
   }
 
+  void testTheme() {}
+
   void createThemeName() {
     push(const NameTheme());
   }
