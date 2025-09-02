@@ -19,6 +19,9 @@ class CreateThemeProvider extends NestedNavigatorProvider {
 
   void removeColor(int i) {
     if (!canRemove) return;
+
+    _colors.removeAt(i);
+    notifyListeners();
   }
 
   void editColor(BuildContext context, int index) {
