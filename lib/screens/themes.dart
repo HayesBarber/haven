@@ -90,6 +90,7 @@ class Themes extends StatelessWidget {
               child: const Text('Cancel'),
             ),
             FButton(
+              style: FButtonStyle.destructive(),
               onPress: () {
                 provider.deleteTheme(title);
                 Navigator.of(context).pop();
