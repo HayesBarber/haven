@@ -35,6 +35,7 @@ class Themes extends StatelessWidget {
           ...provider.themes.entries.map(
             (entry) => _buildThemeTile(
               context: context,
+              provider: provider,
               title: entry.key,
               colors: entry.value.$2,
               isLoading: provider.loadingThemes.contains(entry.key),
@@ -56,6 +57,7 @@ class Themes extends StatelessWidget {
 
   FTile _buildThemeTile({
     required BuildContext context,
+    required ThemesProvider provider,
     required String title,
     required List<Color> colors,
     required VoidCallback onPress,
