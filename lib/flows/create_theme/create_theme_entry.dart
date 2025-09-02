@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:forui/widgets/button.dart';
+import 'package:haven/flows/create_theme/provider/create_theme_provider.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/exit_button.dart';
 import 'package:haven/widgets/pick_color.dart';
 import 'package:haven/widgets/theme_color.dart';
+import 'package:provider/provider.dart';
 
 class CreateThemeEntry extends StatelessWidget {
   const CreateThemeEntry({super.key});
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CreateThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(leading: const ExitButton()),
       body: SizedBox.expand(
@@ -26,9 +30,7 @@ class CreateThemeEntry extends StatelessWidget {
                 SizedBox(
                   width: context.sw * .5,
                   child: FButton(
-                    onPress: () {
-                      PickColor.pick(context);
-                    },
+                    onPress: () {},
                     style: FButtonStyle.outline(),
                     child: Text('Add Color'),
                   ),
