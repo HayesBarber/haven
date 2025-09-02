@@ -98,4 +98,21 @@ class ThemesProvider extends ChangeNotifier {
     _buildColorMap(result);
     notifyListeners();
   }
+
+  void deleteTheme(String name) async {
+    _loading = true;
+    notifyListeners();
+
+    final result = await ThemeService.I.deleteTheme(name);
+
+    switch (result) {
+      case Success(value: final updatedThemes):
+        _buildColorMap(updatedThemes);
+      case Failure():
+        break;
+    }
+
+    _loading = false;
+    notifyListeners();
+  }
 }
