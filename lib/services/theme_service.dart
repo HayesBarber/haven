@@ -70,4 +70,25 @@ class ThemeService {
       return Failure(Exception('Failed to create theme: $e'));
     }
   }
+
+  Future<Result<Map<String, String>, Exception>> deleteTheme(
+    String name,
+  ) async {
+    try {
+      final api = _client.getThemesApi();
+
+      final req = DeleteThemeRequestBuilder()..name = name;
+
+      final response = await api.deleteThemeThemesDelete(
+        deleteThemeRequest: req.build(),
+      );
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.themes.toMap());
+    } catch (e) {
+      return Failure(Exception('Failed to delete theme: $e'));
+    }
+  }
 }
