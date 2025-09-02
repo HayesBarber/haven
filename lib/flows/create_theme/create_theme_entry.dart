@@ -23,8 +23,13 @@ class CreateThemeEntry extends StatelessWidget {
               children: [
                 Wrap(
                   children: [
-                    ...provider.colors.map(
-                      (c) => ThemeColor(color: c, onRemove: () {}),
+                    ...provider.colors.mapIndexed(
+                      (c, i) => ThemeColor(
+                        color: c,
+                        onRemove: () {
+                          provider.removeColor(i);
+                        },
+                      ),
                     ),
                   ],
                 ),
