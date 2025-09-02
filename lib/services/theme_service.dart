@@ -46,4 +46,28 @@ class ThemeService {
       return Failure(Exception('Failed to apply theme: $e'));
     }
   }
+
+  Future<Result<Map<String, String>, Exception>> createTheme(
+    String name,
+    String theme,
+  ) async {
+    try {
+      final api = _client.getThemesApi();
+
+      final req = CreateThemeRequestBuilder()
+        ..name = name
+        ..colors = theme;
+
+      final response = await api.createThemeThemesPost(
+        createThemeRequest: req.build(),
+      );
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.themes.toMap());
+    } catch (e) {
+      return Failure(Exception('Failed to create theme: $e'));
+    }
+  }
 }
