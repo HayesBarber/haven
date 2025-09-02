@@ -24,11 +24,14 @@ class CreateThemeEntry extends StatelessWidget {
                 Wrap(
                   children: [
                     ...provider.colors.mapIndexed(
-                      (c, i) => ThemeColor(
-                        color: c,
-                        onRemove: () {
-                          provider.removeColor(i);
-                        },
+                      (c, i) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: ThemeColor(
+                          color: c,
+                          onRemove: () {
+                            provider.removeColor(i);
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -37,9 +40,11 @@ class CreateThemeEntry extends StatelessWidget {
                 SizedBox(
                   width: context.sw * .5,
                   child: FButton(
-                    onPress: () {
-                      provider.addColor(context);
-                    },
+                    onPress: provider.canAdd
+                        ? () {
+                            provider.addColor(context);
+                          }
+                        : null,
                     style: FButtonStyle.outline(),
                     child: Text('Add Color'),
                   ),
