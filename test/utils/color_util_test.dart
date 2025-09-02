@@ -6,8 +6,8 @@ void main() {
   group('ColorUtil', () {
     test('colorsToCommaDelimitedString converts colors to hex strings', () {
       final colors = [
-        const Color.fromARGB(255, 255, 0, 0),
-        const Color.fromARGB(255, 0, 255, 0),
+        const Color.fromARGB(0, 255, 0, 0),
+        const Color.fromARGB(100, 0, 255, 0),
         const Color.fromARGB(255, 0, 0, 255),
       ];
 
