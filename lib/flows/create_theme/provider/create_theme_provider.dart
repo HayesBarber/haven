@@ -30,9 +30,7 @@ class CreateThemeProvider extends NestedNavigatorProvider {
 
   void _openColorPicker(BuildContext context, ColorCallback callback) async {
     Color? color = await PickColor.pick(context);
-
     if (color == null) return;
-
     callback(color);
   }
 }
