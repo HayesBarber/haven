@@ -7,12 +7,14 @@ typedef ColorCallback = void Function(Color color);
 
 class CreateThemeProvider extends NestedNavigatorProvider {
   final List<Color> _colors = [const Color(0xFFff0000)];
+  String _name = '';
 
   CreateThemeProvider({required super.navKey});
 
   List<Color> get colors => _colors;
   bool get canAdd => _colors.length < 4;
   bool get canRemove => _colors.length > 1;
+  bool get canFinish => _name.trim().isNotEmpty;
 
   void addColor(BuildContext context) {
     if (!canAdd) return;
@@ -36,6 +38,11 @@ class CreateThemeProvider extends NestedNavigatorProvider {
     }, _colors[index]);
   }
 
+  void updateName(String value) {
+    _name = value;
+    notifyListeners();
+  }
+
   void _openColorPicker(
     BuildContext context,
     ColorCallback callback,
@@ -51,4 +58,6 @@ class CreateThemeProvider extends NestedNavigatorProvider {
   void createThemeName() {
     push(const NameTheme());
   }
+
+  void finish() {}
 }
