@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:haven/flows/create_theme/name_theme.dart';
 import 'package:haven/services/theme_service.dart';
 import 'package:haven/utils/color_util.dart';
+import 'package:haven/utils/result.dart';
 import 'package:haven/widgets/pick_color.dart';
 
 typedef ColorCallback = void Function(Color color);
@@ -64,5 +65,17 @@ class CreateThemeProvider extends NestedNavigatorProvider {
     push(const NameTheme());
   }
 
-  void finish() {}
+  void finish() async {
+    if (!canFinish) return;
+
+    String theme = ColorUtil.colorsToCommaDelimitedString(_colors);
+    final result = await ThemeService.I.createTheme(_name, theme);
+
+    switch (result) {
+      case Success(value: final value):
+        Navigation.I.pop(value);
+      case Failure():
+        break;
+    }
+  }
 }
