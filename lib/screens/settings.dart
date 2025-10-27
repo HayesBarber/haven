@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/widgets/tile.dart';
+import 'package:haven/flow_registry.dart';
 import 'package:haven/services/app_config.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/avatar.dart';
@@ -16,7 +17,9 @@ class Settings extends StatelessWidget {
             title: Text('Users'),
             prefix: Icon(Icons.person),
             suffix: Icon(Icons.chevron_right),
-            onPress: () {},
+            onPress: () {
+              FlowRegistry.startFlow(Flows.users);
+            },
           ),
           FTile(
             title: Text('Health'),
