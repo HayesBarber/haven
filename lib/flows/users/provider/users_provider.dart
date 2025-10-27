@@ -9,7 +9,7 @@ class UsersProvider extends NestedNavigatorProvider {
   bool _refreshing = false;
 
   UsersProvider({required super.navKey}) {
-    fetchUsers();
+    _fetchUsers();
   }
 
   List<String> get users => _users;
@@ -17,7 +17,7 @@ class UsersProvider extends NestedNavigatorProvider {
   bool get hasError => _hasError;
   bool get refreshing => _refreshing;
 
-  Future<void> fetchUsers() async {
+  Future<void> _fetchUsers() async {
     _loading = true;
     notifyListeners();
 
@@ -38,7 +38,7 @@ class UsersProvider extends NestedNavigatorProvider {
     _refreshing = true;
     notifyListeners();
 
-    await fetchUsers();
+    await _fetchUsers();
 
     _refreshing = false;
     notifyListeners();
