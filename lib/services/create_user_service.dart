@@ -8,14 +8,14 @@ import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
 class CreateUserService {
-  final client = HomeApiClient(
+  final _client = HomeApiClient(
     basePathOverride: dotenv.get("CREATE_USER_URL"),
     interceptors: HttpInterceptors.getInterceptors(),
   );
 
   Future<Result<List<String>, Exception>> getUsers() async {
     try {
-      final api = client.getUsersApi();
+      final api = _client.getUsersApi();
 
       final response = await api.getUsersUsersGet();
       response.assertValid();
@@ -34,7 +34,7 @@ class CreateUserService {
         throw ArgumentError("Username can not be empty");
       }
 
-      final api = client.getUsersApi();
+      final api = _client.getUsersApi();
 
       final keyPair = ECCKeyPair.generate();
 
