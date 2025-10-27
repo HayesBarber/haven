@@ -32,7 +32,7 @@ class Avatar extends StatelessWidget {
           ),
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 11),
             child: Text(
               getInitials(username),
               style: context.textTheme.displayLarge?.copyWith(
