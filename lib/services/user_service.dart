@@ -7,7 +7,7 @@ import 'package:haven/utils/http_interceptors.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
-class UserService {
+class CreateUserService {
   final client = HomeApiClient(
     basePathOverride: dotenv.get("CREATE_USER_URL"),
     interceptors: HttpInterceptors.getInterceptors(),
