@@ -26,7 +26,12 @@ class UsersEntry extends StatelessWidget {
       loading: provider.loading,
       refreshing: provider.refreshing,
       onRefresh: provider.refresh,
-      children: [usersGroup],
+      children: [
+        if (provider.hasError)
+          Center(child: Text('Error Fetching Users'))
+        else
+          usersGroup,
+      ],
     );
   }
 }
