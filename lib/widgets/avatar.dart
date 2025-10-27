@@ -9,7 +9,15 @@ class Avatar extends StatelessWidget {
   String getInitials(String name) {
     final parts = name.trim().split(' ');
     if (parts.isEmpty) return '';
-    final initials = parts.map((part) => part[0]).take(2).join();
+    final initials = parts
+        .map((part) {
+          if (part.isNotEmpty) {
+            return part[0];
+          }
+          return '';
+        })
+        .take(2)
+        .join();
     return initials.toUpperCase();
   }
 
