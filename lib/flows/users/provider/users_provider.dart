@@ -26,6 +26,7 @@ class UsersProvider extends NestedNavigatorProvider {
     switch (result) {
       case Success(value: final value):
         _users = value;
+        _hasError = false;
       case Failure():
         _hasError = true;
     }
