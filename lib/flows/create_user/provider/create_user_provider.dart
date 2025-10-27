@@ -4,7 +4,7 @@ import 'package:haven/flows/create_user/error_creating_user.dart';
 import 'package:haven/flows/create_user/generate_key_pair.dart';
 import 'package:haven/flows/create_user/user_created.dart';
 import 'package:haven/main.dart';
-import 'package:haven/services/user_service.dart';
+import 'package:haven/services/create_user_service.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
 
@@ -15,7 +15,7 @@ class CreateUserProvider extends NestedNavigatorProvider {
   CreateUserProvider({required super.navKey}) {
     // Trigger a call to getUsers here because the device may prompt for network
     // permission, and this ensures that permission flow starts early.
-    UserService().getUsers();
+    CreateUserService().getUsers();
   }
 
   String get username => _username;
@@ -34,7 +34,7 @@ class CreateUserProvider extends NestedNavigatorProvider {
   }
 
   void _createUser() async {
-    final createUserService = UserService();
+    final createUserService = CreateUserService();
 
     final result = await createUserService.createUser(_username).pace(2500);
 
