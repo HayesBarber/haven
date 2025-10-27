@@ -7,6 +7,7 @@ class RefreshableScaffold extends StatelessWidget {
   final bool refreshing;
   final Future<void> Function() onRefresh;
   final List<Widget> children;
+  final PreferredSizeWidget? appBar;
 
   const RefreshableScaffold({
     super.key,
@@ -15,11 +16,13 @@ class RefreshableScaffold extends StatelessWidget {
     required this.refreshing,
     required this.onRefresh,
     required this.children,
+    this.appBar,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: RefreshIndicator.adaptive(
         displacement: 70,
         onRefresh: onRefresh,
