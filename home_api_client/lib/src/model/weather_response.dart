@@ -3,56 +3,54 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:home_api_client/src/model/controllable_device.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'effected_devices_response.g.dart';
+part 'weather_response.g.dart';
 
-/// EffectedDevicesResponse
+/// WeatherResponse
 ///
 /// Properties:
-/// * [devices] 
+/// * [temperature] 
 @BuiltValue()
-abstract class EffectedDevicesResponse implements Built<EffectedDevicesResponse, EffectedDevicesResponseBuilder> {
-  @BuiltValueField(wireName: r'devices')
-  BuiltList<ControllableDevice> get devices;
+abstract class WeatherResponse implements Built<WeatherResponse, WeatherResponseBuilder> {
+  @BuiltValueField(wireName: r'temperature')
+  String get temperature;
 
-  EffectedDevicesResponse._();
+  WeatherResponse._();
 
-  factory EffectedDevicesResponse([void updates(EffectedDevicesResponseBuilder b)]) = _$EffectedDevicesResponse;
+  factory WeatherResponse([void updates(WeatherResponseBuilder b)]) = _$WeatherResponse;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(EffectedDevicesResponseBuilder b) => b;
+  static void _defaults(WeatherResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<EffectedDevicesResponse> get serializer => _$EffectedDevicesResponseSerializer();
+  static Serializer<WeatherResponse> get serializer => _$WeatherResponseSerializer();
 }
 
-class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<EffectedDevicesResponse> {
+class _$WeatherResponseSerializer implements PrimitiveSerializer<WeatherResponse> {
   @override
-  final Iterable<Type> types = const [EffectedDevicesResponse, _$EffectedDevicesResponse];
+  final Iterable<Type> types = const [WeatherResponse, _$WeatherResponse];
 
   @override
-  final String wireName = r'EffectedDevicesResponse';
+  final String wireName = r'WeatherResponse';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    EffectedDevicesResponse object, {
+    WeatherResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'devices';
+    yield r'temperature';
     yield serializers.serialize(
-      object.devices,
-      specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
+      object.temperature,
+      specifiedType: const FullType(String),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    EffectedDevicesResponse object, {
+    WeatherResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -63,19 +61,19 @@ class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<Effecte
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required EffectedDevicesResponseBuilder result,
+    required WeatherResponseBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'devices':
+        case r'temperature':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
-          ) as BuiltList<ControllableDevice>;
-          result.devices.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.temperature = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -86,12 +84,12 @@ class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<Effecte
   }
 
   @override
-  EffectedDevicesResponse deserialize(
+  WeatherResponse deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = EffectedDevicesResponseBuilder();
+    final result = WeatherResponseBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

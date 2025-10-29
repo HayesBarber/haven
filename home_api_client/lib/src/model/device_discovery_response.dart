@@ -4,7 +4,8 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:home_api_client/src/model/device_config.dart';
+import 'package:home_api_client/src/model/controllable_device.dart';
+import 'package:home_api_client/src/model/interface_device.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,11 +14,15 @@ part 'device_discovery_response.g.dart';
 /// DeviceDiscoveryResponse
 ///
 /// Properties:
-/// * [devices] 
+/// * [controllableDevices] 
+/// * [interfaceDevices] 
 @BuiltValue()
 abstract class DeviceDiscoveryResponse implements Built<DeviceDiscoveryResponse, DeviceDiscoveryResponseBuilder> {
-  @BuiltValueField(wireName: r'devices')
-  BuiltList<DeviceConfig> get devices;
+  @BuiltValueField(wireName: r'controllable_devices')
+  BuiltList<ControllableDevice>? get controllableDevices;
+
+  @BuiltValueField(wireName: r'interface_devices')
+  BuiltList<InterfaceDevice>? get interfaceDevices;
 
   DeviceDiscoveryResponse._();
 
@@ -42,11 +47,20 @@ class _$DeviceDiscoveryResponseSerializer implements PrimitiveSerializer<DeviceD
     DeviceDiscoveryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'devices';
-    yield serializers.serialize(
-      object.devices,
-      specifiedType: const FullType(BuiltList, [FullType(DeviceConfig)]),
-    );
+    if (object.controllableDevices != null) {
+      yield r'controllable_devices';
+      yield serializers.serialize(
+        object.controllableDevices,
+        specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
+      );
+    }
+    if (object.interfaceDevices != null) {
+      yield r'interface_devices';
+      yield serializers.serialize(
+        object.interfaceDevices,
+        specifiedType: const FullType(BuiltList, [FullType(InterfaceDevice)]),
+      );
+    }
   }
 
   @override
@@ -70,12 +84,19 @@ class _$DeviceDiscoveryResponseSerializer implements PrimitiveSerializer<DeviceD
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'devices':
+        case r'controllable_devices':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(DeviceConfig)]),
-          ) as BuiltList<DeviceConfig>;
-          result.devices.replace(valueDes);
+            specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
+          ) as BuiltList<ControllableDevice>;
+          result.controllableDevices.replace(valueDes);
+          break;
+        case r'interface_devices':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(InterfaceDevice)]),
+          ) as BuiltList<InterfaceDevice>;
+          result.interfaceDevices.replace(valueDes);
           break;
         default:
           unhandled.add(key);

@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:home_api_client/src/model/device_config.dart';
+import 'package:home_api_client/src/model/controllable_device.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -17,7 +17,7 @@ part 'device_read_response.g.dart';
 @BuiltValue()
 abstract class DeviceReadResponse implements Built<DeviceReadResponse, DeviceReadResponseBuilder> {
   @BuiltValueField(wireName: r'devices')
-  BuiltList<DeviceConfig> get devices;
+  BuiltList<ControllableDevice> get devices;
 
   DeviceReadResponse._();
 
@@ -45,7 +45,7 @@ class _$DeviceReadResponseSerializer implements PrimitiveSerializer<DeviceReadRe
     yield r'devices';
     yield serializers.serialize(
       object.devices,
-      specifiedType: const FullType(BuiltList, [FullType(DeviceConfig)]),
+      specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
     );
   }
 
@@ -73,8 +73,8 @@ class _$DeviceReadResponseSerializer implements PrimitiveSerializer<DeviceReadRe
         case r'devices':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(DeviceConfig)]),
-          ) as BuiltList<DeviceConfig>;
+            specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
+          ) as BuiltList<ControllableDevice>;
           result.devices.replace(valueDes);
           break;
         default:

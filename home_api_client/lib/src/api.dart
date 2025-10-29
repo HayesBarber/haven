@@ -11,9 +11,11 @@ import 'package:home_api_client/src/auth/bearer_auth.dart';
 import 'package:home_api_client/src/auth/oauth.dart';
 import 'package:home_api_client/src/api/device_api.dart';
 import 'package:home_api_client/src/api/discovery_api.dart';
+import 'package:home_api_client/src/api/health_api.dart';
 import 'package:home_api_client/src/api/lighting_api.dart';
 import 'package:home_api_client/src/api/themes_api.dart';
 import 'package:home_api_client/src/api/users_api.dart';
+import 'package:home_api_client/src/api/weather_api.dart';
 
 class HomeApiClient {
   static const String basePath = r'http://localhost';
@@ -81,6 +83,12 @@ class HomeApiClient {
     return DiscoveryApi(dio, serializers);
   }
 
+  /// Get HealthApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  HealthApi getHealthApi() {
+    return HealthApi(dio, serializers);
+  }
+
   /// Get LightingApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   LightingApi getLightingApi() {
@@ -97,5 +105,11 @@ class HomeApiClient {
   /// by doing that all interceptors will not be executed
   UsersApi getUsersApi() {
     return UsersApi(dio, serializers);
+  }
+
+  /// Get WeatherApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WeatherApi getWeatherApi() {
+    return WeatherApi(dio, serializers);
   }
 }

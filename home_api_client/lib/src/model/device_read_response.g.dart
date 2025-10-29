@@ -8,7 +8,7 @@ part of 'device_read_response.dart';
 
 class _$DeviceReadResponse extends DeviceReadResponse {
   @override
-  final BuiltList<DeviceConfig> devices;
+  final BuiltList<ControllableDevice> devices;
 
   factory _$DeviceReadResponse(
           [void Function(DeviceReadResponseBuilder)? updates]) =>
@@ -50,10 +50,11 @@ class DeviceReadResponseBuilder
     implements Builder<DeviceReadResponse, DeviceReadResponseBuilder> {
   _$DeviceReadResponse? _$v;
 
-  ListBuilder<DeviceConfig>? _devices;
-  ListBuilder<DeviceConfig> get devices =>
-      _$this._devices ??= ListBuilder<DeviceConfig>();
-  set devices(ListBuilder<DeviceConfig>? devices) => _$this._devices = devices;
+  ListBuilder<ControllableDevice>? _devices;
+  ListBuilder<ControllableDevice> get devices =>
+      _$this._devices ??= ListBuilder<ControllableDevice>();
+  set devices(ListBuilder<ControllableDevice>? devices) =>
+      _$this._devices = devices;
 
   DeviceReadResponseBuilder() {
     DeviceReadResponse._defaults(this);

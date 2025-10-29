@@ -9,6 +9,7 @@ part of 'device_type.dart';
 const DeviceType _$kasa = const DeviceType._('kasa');
 const DeviceType _$lifx = const DeviceType._('lifx');
 const DeviceType _$ledStrip = const DeviceType._('ledStrip');
+const DeviceType _$interface_ = const DeviceType._('interface_');
 
 DeviceType _$valueOf(String name) {
   switch (name) {
@@ -18,6 +19,8 @@ DeviceType _$valueOf(String name) {
       return _$lifx;
     case 'ledStrip':
       return _$ledStrip;
+    case 'interface_':
+      return _$interface_;
     default:
       throw ArgumentError(name);
   }
@@ -27,6 +30,7 @@ final BuiltSet<DeviceType> _$values = BuiltSet<DeviceType>(const <DeviceType>[
   _$kasa,
   _$lifx,
   _$ledStrip,
+  _$interface_,
 ]);
 
 class _$DeviceTypeMeta {
@@ -34,6 +38,7 @@ class _$DeviceTypeMeta {
   DeviceType get kasa => _$kasa;
   DeviceType get lifx => _$lifx;
   DeviceType get ledStrip => _$ledStrip;
+  DeviceType get interface_ => _$interface_;
   DeviceType valueOf(String name) => _$valueOf(name);
   BuiltSet<DeviceType> get values => _$values;
 }
@@ -50,11 +55,13 @@ class _$DeviceTypeSerializer implements PrimitiveSerializer<DeviceType> {
     'kasa': 'kasa',
     'lifx': 'lifx',
     'ledStrip': 'led_strip',
+    'interface_': 'interface',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'kasa': 'kasa',
     'lifx': 'lifx',
     'led_strip': 'ledStrip',
+    'interface': 'interface_',
   };
 
   @override

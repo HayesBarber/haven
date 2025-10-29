@@ -3,56 +3,63 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:home_api_client/src/model/controllable_device.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'effected_devices_response.g.dart';
+part 'health_request.g.dart';
 
-/// EffectedDevicesResponse
+/// HealthRequest
 ///
 /// Properties:
-/// * [devices] 
+/// * [passcode] 
+/// * [port] 
 @BuiltValue()
-abstract class EffectedDevicesResponse implements Built<EffectedDevicesResponse, EffectedDevicesResponseBuilder> {
-  @BuiltValueField(wireName: r'devices')
-  BuiltList<ControllableDevice> get devices;
+abstract class HealthRequest implements Built<HealthRequest, HealthRequestBuilder> {
+  @BuiltValueField(wireName: r'passcode')
+  String get passcode;
 
-  EffectedDevicesResponse._();
+  @BuiltValueField(wireName: r'port')
+  int get port;
 
-  factory EffectedDevicesResponse([void updates(EffectedDevicesResponseBuilder b)]) = _$EffectedDevicesResponse;
+  HealthRequest._();
+
+  factory HealthRequest([void updates(HealthRequestBuilder b)]) = _$HealthRequest;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(EffectedDevicesResponseBuilder b) => b;
+  static void _defaults(HealthRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<EffectedDevicesResponse> get serializer => _$EffectedDevicesResponseSerializer();
+  static Serializer<HealthRequest> get serializer => _$HealthRequestSerializer();
 }
 
-class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<EffectedDevicesResponse> {
+class _$HealthRequestSerializer implements PrimitiveSerializer<HealthRequest> {
   @override
-  final Iterable<Type> types = const [EffectedDevicesResponse, _$EffectedDevicesResponse];
+  final Iterable<Type> types = const [HealthRequest, _$HealthRequest];
 
   @override
-  final String wireName = r'EffectedDevicesResponse';
+  final String wireName = r'HealthRequest';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    EffectedDevicesResponse object, {
+    HealthRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'devices';
+    yield r'passcode';
     yield serializers.serialize(
-      object.devices,
-      specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
+      object.passcode,
+      specifiedType: const FullType(String),
+    );
+    yield r'port';
+    yield serializers.serialize(
+      object.port,
+      specifiedType: const FullType(int),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    EffectedDevicesResponse object, {
+    HealthRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -63,19 +70,26 @@ class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<Effecte
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required EffectedDevicesResponseBuilder result,
+    required HealthRequestBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'devices':
+        case r'passcode':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(ControllableDevice)]),
-          ) as BuiltList<ControllableDevice>;
-          result.devices.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.passcode = valueDes;
+          break;
+        case r'port':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.port = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -86,12 +100,12 @@ class _$EffectedDevicesResponseSerializer implements PrimitiveSerializer<Effecte
   }
 
   @override
-  EffectedDevicesResponse deserialize(
+  HealthRequest deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = EffectedDevicesResponseBuilder();
+    final result = HealthRequestBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

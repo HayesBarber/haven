@@ -17,6 +17,8 @@ class DeviceType extends EnumClass {
   static const DeviceType lifx = _$lifx;
   @BuiltValueEnumConst(wireName: r'led_strip')
   static const DeviceType ledStrip = _$ledStrip;
+  @BuiltValueEnumConst(wireName: r'interface')
+  static const DeviceType interface_ = _$interface_;
 
   static Serializer<DeviceType> get serializer => _$deviceTypeSerializer;
 

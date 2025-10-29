@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 [*DiscoveryApi*](doc/DiscoveryApi.md) | [**discoverEspDiscoveryDiscoverEspPost**](doc/DiscoveryApi.md#discoverespdiscoverydiscoveresppost) | **POST** /discovery/discover/esp | Discover Esp
 [*DiscoveryApi*](doc/DiscoveryApi.md) | [**discoverKasaDiscoveryDiscoverKasaPost**](doc/DiscoveryApi.md#discoverkasadiscoverydiscoverkasapost) | **POST** /discovery/discover/kasa | Discover Kasa
 [*DiscoveryApi*](doc/DiscoveryApi.md) | [**discoverLifxDiscoveryDiscoverLifxPost**](doc/DiscoveryApi.md#discoverlifxdiscoverydiscoverlifxpost) | **POST** /discovery/discover/lifx | Discover Lifx
+[*HealthApi*](doc/HealthApi.md) | [**getHealthHealthPost**](doc/HealthApi.md#gethealthhealthpost) | **POST** /health | Get Health
 [*LightingApi*](doc/LightingApi.md) | [**setStateLightingNameActionGet**](doc/LightingApi.md#setstatelightingnameactionget) | **GET** /lighting/{name}/{action} | Set State
 [*ThemesApi*](doc/ThemesApi.md) | [**applyThemeThemesApplyPost**](doc/ThemesApi.md#applythemethemesapplypost) | **POST** /themes/apply | Apply Theme
 [*ThemesApi*](doc/ThemesApi.md) | [**createThemeThemesPost**](doc/ThemesApi.md#createthemethemespost) | **POST** /themes/ | Create Theme
@@ -79,16 +80,19 @@ Class | Method | HTTP request | Description
 [*UsersApi*](doc/UsersApi.md) | [**createUserUsersPost**](doc/UsersApi.md#createuseruserspost) | **POST** /users/ | Create User
 [*UsersApi*](doc/UsersApi.md) | [**deleteUserUsersDelete**](doc/UsersApi.md#deleteuserusersdelete) | **DELETE** /users/ | Delete User
 [*UsersApi*](doc/UsersApi.md) | [**getUsersUsersGet**](doc/UsersApi.md#getusersusersget) | **GET** /users/ | Get Users
+[*WeatherApi*](doc/WeatherApi.md) | [**getWeatherWeatherGet**](doc/WeatherApi.md#getweatherweatherget) | **GET** /weather | Get Weather
 
 
 ## Documentation For Models
 
  - [ApplyThemeRequest](doc/ApplyThemeRequest.md)
+ - [CheckinRequest](doc/CheckinRequest.md)
+ - [CheckinResponse](doc/CheckinResponse.md)
+ - [ControllableDevice](doc/ControllableDevice.md)
  - [CreateThemeRequest](doc/CreateThemeRequest.md)
  - [CreateUserRequest](doc/CreateUserRequest.md)
  - [DeleteThemeRequest](doc/DeleteThemeRequest.md)
  - [DeleteUserRequest](doc/DeleteUserRequest.md)
- - [DeviceConfig](doc/DeviceConfig.md)
  - [DeviceDiscoveryResponse](doc/DeviceDiscoveryResponse.md)
  - [DeviceReadResponse](doc/DeviceReadResponse.md)
  - [DeviceType](doc/DeviceType.md)
@@ -96,10 +100,15 @@ Class | Method | HTTP request | Description
  - [GetThemesResponse](doc/GetThemesResponse.md)
  - [GetUsersResponse](doc/GetUsersResponse.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
+ - [HealthRequest](doc/HealthRequest.md)
+ - [HealthResponse](doc/HealthResponse.md)
+ - [HealthState](doc/HealthState.md)
+ - [InterfaceDevice](doc/InterfaceDevice.md)
  - [PowerAction](doc/PowerAction.md)
  - [PowerState](doc/PowerState.md)
  - [ValidationError](doc/ValidationError.md)
  - [ValidationErrorLocInner](doc/ValidationErrorLocInner.md)
+ - [WeatherResponse](doc/WeatherResponse.md)
 
 
 ## Documentation For Authorization
