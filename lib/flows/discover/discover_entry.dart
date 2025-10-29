@@ -62,17 +62,30 @@ class DiscoverEntry extends StatelessWidget {
 
     if (controllableDevices.isNotEmpty) {
       response.add(
-        _buildDeviceGroup('Controllable Devices', controllableDevices),
+        _DeviceGroup(
+          label: 'Controllable Devices',
+          devices: controllableDevices,
+        ),
       );
     }
 
     if (interfaceDevices.isNotEmpty) {
-      response.add(_buildDeviceGroup('Interface Devices', interfaceDevices));
+      response.add(
+        _DeviceGroup(label: 'Interface Devices', devices: interfaceDevices),
+      );
     }
     return response;
   }
+}
 
-  Widget _buildDeviceGroup(String label, List devices) {
+class _DeviceGroup extends StatelessWidget {
+  const _DeviceGroup({required this.label, required this.devices});
+
+  final String label;
+  final List devices;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: Styles.tileGroupPadding,
       child: FTileGroup(
