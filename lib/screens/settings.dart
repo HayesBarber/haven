@@ -22,6 +22,14 @@ class Settings extends StatelessWidget {
             },
           ),
           FTile(
+            title: Text('Discover'),
+            prefix: Icon(Icons.compass_calibration),
+            suffix: Icon(Icons.chevron_right),
+            onPress: () {
+              FlowRegistry.startFlow(Flows.discover);
+            },
+          ),
+          FTile(
             title: Text('Health'),
             prefix: Icon(Icons.monitor_heart),
             suffix: Icon(Icons.chevron_right),
