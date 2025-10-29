@@ -6,9 +6,14 @@ class DiscoverProvider extends NestedNavigatorProvider {
   final _controller = FSelectTileGroupController<DeviceType>.radio(
     value: DeviceType.lifx,
   );
+  bool _loading = false;
+  bool _hasError = false;
+
   DiscoverProvider({required super.navKey});
 
   FSelectTileGroupController<DeviceType> get controller => _controller;
+  bool get loading => _loading;
+  bool get hasError => _hasError;
 
   Future<void> discover() async {}
 }
