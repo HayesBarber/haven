@@ -28,7 +28,9 @@ class ThemeService {
     }
   }
 
-  Future<Result<List<DeviceConfig>, Exception>> applyTheme(String theme) async {
+  Future<Result<List<ControllableDevice>, Exception>> applyTheme(
+    String theme,
+  ) async {
     try {
       final api = _client.getThemesApi();
 
