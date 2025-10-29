@@ -35,7 +35,7 @@ class DiscoverEntry extends StatelessWidget {
               ],
             ),
           ),
-          _displayDiscoveryResponse(provider),
+          ..._displayDiscoveryResponse(provider),
         ],
       ),
       bottomNavigationBar: Padding(
@@ -48,10 +48,15 @@ class DiscoverEntry extends StatelessWidget {
     );
   }
 
-  Widget _displayDiscoveryResponse(DiscoverProvider provider) {
+  List<Widget> _displayDiscoveryResponse(DiscoverProvider provider) {
     if (provider.deviceDiscoveryResponse == null) {
-      return SizedBox.shrink();
+      return [];
     }
-    return SizedBox.shrink();
+    List<ControllableDevice> controllableDevices =
+        provider.deviceDiscoveryResponse?.controllableDevices?.toList() ?? [];
+    List<InterfaceDevice> interfaceDevices =
+        provider.deviceDiscoveryResponse?.interfaceDevices?.toList() ?? [];
+
+    return [];
   }
 }
