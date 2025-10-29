@@ -24,8 +24,8 @@ class DiscoveryService {
         response = await api.discoverLifxDiscoveryDiscoverLifxPost();
       } else {
         response = await api.discoverEspDiscoveryDiscoverEspPost(
-          passcode: "",
-          port: 0,
+          passcode: dotenv.get("ESP_DISCOVERY_PASSCODE"),
+          port: dotenv.getInt("ESP_DISCOVERY_PORT"),
         );
       }
       response.assertValid();
