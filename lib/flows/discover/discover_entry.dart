@@ -42,6 +42,7 @@ class DiscoverEntry extends StatelessWidget {
         padding: Styles.buttonPadding,
         child: FButton(
           onPress: provider.discover,
+          prefix: provider.loading ? const FProgress.circularIcon() : null,
           child: const Text("Discover"),
         ),
       ),
