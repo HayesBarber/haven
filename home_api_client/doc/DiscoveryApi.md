@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **checkInDeviceDiscoveryCheckInPost**
-> checkInDeviceDiscoveryCheckInPost(deviceConfig)
+> CheckinResponse checkInDeviceDiscoveryCheckInPost(checkinRequest)
 
 Check In Device
 
@@ -25,10 +25,11 @@ Check In Device
 import 'package:home_api_client/api.dart';
 
 final api = HomeApiClient().getDiscoveryApi();
-final DeviceConfig deviceConfig = ; // DeviceConfig | 
+final CheckinRequest checkinRequest = ; // CheckinRequest | 
 
 try {
-    api.checkInDeviceDiscoveryCheckInPost(deviceConfig);
+    final response = api.checkInDeviceDiscoveryCheckInPost(checkinRequest);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling DiscoveryApi->checkInDeviceDiscoveryCheckInPost: $e\n');
 }
@@ -38,11 +39,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deviceConfig** | [**DeviceConfig**](DeviceConfig.md)|  | 
+ **checkinRequest** | [**CheckinRequest**](CheckinRequest.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**CheckinResponse**](CheckinResponse.md)
 
 ### Authorization
 
@@ -56,7 +57,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **discoverEspDiscoveryDiscoverEspPost**
-> discoverEspDiscoveryDiscoverEspPost(passcode, port)
+> DeviceDiscoveryResponse discoverEspDiscoveryDiscoverEspPost(passcode, port)
 
 Discover Esp
 
@@ -69,7 +70,8 @@ final String passcode = passcode_example; // String |
 final int port = 56; // int | 
 
 try {
-    api.discoverEspDiscoveryDiscoverEspPost(passcode, port);
+    final response = api.discoverEspDiscoveryDiscoverEspPost(passcode, port);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling DiscoveryApi->discoverEspDiscoveryDiscoverEspPost: $e\n');
 }
@@ -84,7 +86,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**DeviceDiscoveryResponse**](DeviceDiscoveryResponse.md)
 
 ### Authorization
 

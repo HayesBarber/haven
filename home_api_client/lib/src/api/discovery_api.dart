@@ -8,7 +8,8 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:home_api_client/src/api_util.dart';
-import 'package:home_api_client/src/model/device_config.dart';
+import 'package:home_api_client/src/model/checkin_request.dart';
+import 'package:home_api_client/src/model/checkin_response.dart';
 import 'package:home_api_client/src/model/device_discovery_response.dart';
 
 class DiscoveryApi {
@@ -23,7 +24,7 @@ class DiscoveryApi {
   /// 
   ///
   /// Parameters:
-  /// * [deviceConfig] 
+  /// * [checkinRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -31,10 +32,10 @@ class DiscoveryApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [CheckinResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> checkInDeviceDiscoveryCheckInPost({ 
-    required DeviceConfig deviceConfig,
+  Future<Response<CheckinResponse>> checkInDeviceDiscoveryCheckInPost({ 
+    required CheckinRequest checkinRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -59,8 +60,8 @@ class DiscoveryApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(DeviceConfig);
-      _bodyData = _serializers.serialize(deviceConfig, specifiedType: _type);
+      const _type = FullType(CheckinRequest);
+      _bodyData = _serializers.serialize(checkinRequest, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
@@ -83,7 +84,35 @@ class DiscoveryApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    CheckinResponse? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(CheckinResponse),
+      ) as CheckinResponse;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<CheckinResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// Discover Esp
@@ -99,9 +128,9 @@ class DiscoveryApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [DeviceDiscoveryResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> discoverEspDiscoveryDiscoverEspPost({ 
+  Future<Response<DeviceDiscoveryResponse>> discoverEspDiscoveryDiscoverEspPost({ 
     required String passcode,
     required int port,
     CancelToken? cancelToken,
@@ -138,7 +167,35 @@ class DiscoveryApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    DeviceDiscoveryResponse? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(DeviceDiscoveryResponse),
+      ) as DeviceDiscoveryResponse;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<DeviceDiscoveryResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// Discover Kasa

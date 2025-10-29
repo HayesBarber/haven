@@ -8,7 +8,7 @@ part of 'effected_devices_response.dart';
 
 class _$EffectedDevicesResponse extends EffectedDevicesResponse {
   @override
-  final BuiltList<DeviceConfig> devices;
+  final BuiltList<ControllableDevice> devices;
 
   factory _$EffectedDevicesResponse(
           [void Function(EffectedDevicesResponseBuilder)? updates]) =>
@@ -51,10 +51,11 @@ class EffectedDevicesResponseBuilder
         Builder<EffectedDevicesResponse, EffectedDevicesResponseBuilder> {
   _$EffectedDevicesResponse? _$v;
 
-  ListBuilder<DeviceConfig>? _devices;
-  ListBuilder<DeviceConfig> get devices =>
-      _$this._devices ??= ListBuilder<DeviceConfig>();
-  set devices(ListBuilder<DeviceConfig>? devices) => _$this._devices = devices;
+  ListBuilder<ControllableDevice>? _devices;
+  ListBuilder<ControllableDevice> get devices =>
+      _$this._devices ??= ListBuilder<ControllableDevice>();
+  set devices(ListBuilder<ControllableDevice>? devices) =>
+      _$this._devices = devices;
 
   EffectedDevicesResponseBuilder() {
     EffectedDevicesResponse._defaults(this);

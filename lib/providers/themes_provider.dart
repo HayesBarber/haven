@@ -67,7 +67,7 @@ class ThemesProvider extends ChangeNotifier {
     _themes = map;
   }
 
-  void _notifyLighting(List<DeviceConfig> updatedDevices) {
+  void _notifyLighting(List<ControllableDevice> updatedDevices) {
     _lightingProvider?.updateDevicesFromTheme(updatedDevices);
   }
 

@@ -6,8 +6,8 @@ import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
 class LightingProvider extends ChangeNotifier {
-  List<DeviceConfig> _deviceConfigs = [];
-  Map<String, List<DeviceConfig>> _roomsMap = {};
+  List<ControllableDevice> _deviceConfigs = [];
+  Map<String, List<ControllableDevice>> _roomsMap = {};
   final Set<String> _loadingDevices = {};
   final Map<String, bool> _roomsPowerMap = {};
   bool _loading = false;
@@ -19,8 +19,8 @@ class LightingProvider extends ChangeNotifier {
     _initAsync();
   }
 
-  List<DeviceConfig> get devices => _deviceConfigs;
-  Map<String, List<DeviceConfig>> get roomsMap => _roomsMap;
+  List<ControllableDevice> get devices => _deviceConfigs;
+  Map<String, List<ControllableDevice>> get roomsMap => _roomsMap;
   Set<String> get loadingDevices => _loadingDevices;
   Map<String, bool> get roomsPowerMap => _roomsPowerMap;
   bool get loading => _loading;
@@ -60,8 +60,8 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _buildRoomMap(List<DeviceConfig> devices) {
-    final Map<String, List<DeviceConfig>> groupedRooms = {};
+  void _buildRoomMap(List<ControllableDevice> devices) {
+    final Map<String, List<ControllableDevice>> groupedRooms = {};
     for (var device in devices) {
       final room = device.room ?? 'Unknown';
       groupedRooms[room] = groupedRooms.getOrDefault(room, [])..add(device);
@@ -74,14 +74,15 @@ class LightingProvider extends ChangeNotifier {
       );
       _roomsPowerMap[entry.key] = roomIsOn;
     }
-    final sortedRooms = LinkedHashMap<String, List<DeviceConfig>>.fromEntries(
-      groupedRooms.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
-    );
+    final sortedRooms =
+        LinkedHashMap<String, List<ControllableDevice>>.fromEntries(
+          groupedRooms.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+        );
     _setHomeIsOn();
     _roomsMap = sortedRooms;
   }
 
-  void _updateDevicesAndRooms(List<DeviceConfig> updatedDevices) {
+  void _updateDevicesAndRooms(List<ControllableDevice> updatedDevices) {
     final updatedNames = updatedDevices.map((d) => d.name).toSet();
     _deviceConfigs = [
       ..._deviceConfigs.where((d) => !updatedNames.contains(d.name)),
@@ -106,7 +107,7 @@ class LightingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleDevice(DeviceConfig device) {
+  void toggleDevice(ControllableDevice device) {
     final action = device.powerState == PowerState.on_
         ? PowerAction.off
         : PowerAction.on_;
@@ -125,7 +126,7 @@ class LightingProvider extends ChangeNotifier {
     _toggleEntity('home', action);
   }
 
-  void updateDevicesFromTheme(List<DeviceConfig> updatedDevices) {
+  void updateDevicesFromTheme(List<ControllableDevice> updatedDevices) {
     _updateDevicesAndRooms(updatedDevices);
     notifyListeners();
   }
