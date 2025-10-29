@@ -7,4 +7,6 @@ class DiscoverProvider extends NestedNavigatorProvider {
     value: DeviceType.lifx,
   );
   DiscoverProvider({required super.navKey});
+
+  Future<void> discover() async {}
 }

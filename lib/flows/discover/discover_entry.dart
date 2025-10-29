@@ -37,6 +37,13 @@ class DiscoverEntry extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: Padding(
+        padding: Styles.buttonPadding,
+        child: FButton(
+          onPress: provider.discover,
+          child: const Text("Discover"),
+        ),
+      ),
     );
   }
 }
