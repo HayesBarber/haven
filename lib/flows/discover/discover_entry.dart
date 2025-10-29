@@ -2,6 +2,7 @@ import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:haven/flows/discover/provider/discover_provider.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/scaffold_title.dart';
 import 'package:home_api_client/home_api_client.dart';
@@ -40,10 +41,28 @@ class DiscoverEntry extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: Styles.buttonPadding,
-        child: FButton(
-          onPress: provider.discover,
-          prefix: provider.loading ? const FProgress.circularIcon() : null,
-          child: const Text("Discover"),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (provider.hasError) ...[
+              Text(
+                'Error during discovery',
+                style: context.textTheme.bodyLarge?.copyWith(
+                  color: context.colorScheme.error,
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+            if (provider.noDevicesFound) ...[
+              Text('No devices found', style: context.textTheme.bodyLarge),
+              const SizedBox(height: 16),
+            ],
+            FButton(
+              onPress: provider.discover,
+              prefix: provider.loading ? const FProgress.circularIcon() : null,
+              child: const Text("Discover"),
+            ),
+          ],
         ),
       ),
     );

@@ -10,6 +10,7 @@ class DiscoverProvider extends NestedNavigatorProvider {
   );
   bool _loading = false;
   bool _hasError = false;
+  bool _noDevicesFound = false;
   final _service = DiscoveryService();
   DeviceDiscoveryResponse? _deviceDiscoveryResponse;
 
@@ -18,6 +19,7 @@ class DiscoverProvider extends NestedNavigatorProvider {
   FSelectTileGroupController<DeviceType> get controller => _controller;
   bool get loading => _loading;
   bool get hasError => _hasError;
+  bool get noDevicesFound => _noDevicesFound;
   DeviceDiscoveryResponse? get deviceDiscoveryResponse =>
       _deviceDiscoveryResponse;
 
@@ -37,8 +39,12 @@ class DiscoverProvider extends NestedNavigatorProvider {
       case Success(value: final value):
         _hasError = false;
         _deviceDiscoveryResponse = value;
+        _noDevicesFound =
+            (_deviceDiscoveryResponse?.controllableDevices?.isEmpty ?? true) &&
+            (_deviceDiscoveryResponse?.interfaceDevices?.isEmpty ?? true);
       case Failure():
         _hasError = true;
+        _noDevicesFound = false;
     }
 
     _loading = false;
