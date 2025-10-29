@@ -35,6 +35,7 @@ class DiscoverEntry extends StatelessWidget {
               ],
             ),
           ),
+          _displayDiscoveryResponse(provider),
         ],
       ),
       bottomNavigationBar: Padding(
@@ -45,5 +46,12 @@ class DiscoverEntry extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _displayDiscoveryResponse(DiscoverProvider provider) {
+    if (provider.deviceDiscoveryResponse == null) {
+      return SizedBox.shrink();
+    }
+    return SizedBox.shrink();
   }
 }
