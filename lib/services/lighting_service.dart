@@ -13,7 +13,7 @@ class LightingService {
   static final LightingService _instance = LightingService._();
   static LightingService get I => _instance;
 
-  Future<Result<List<DeviceConfig>, Exception>> readDevices() async {
+  Future<Result<List<ControllableDevice>, Exception>> readDevices() async {
     try {
       final api = _client.getDeviceApi();
 
@@ -28,7 +28,7 @@ class LightingService {
     }
   }
 
-  Future<Result<List<DeviceConfig>, Exception>> controlDevice(
+  Future<Result<List<ControllableDevice>, Exception>> controlDevice(
     String name,
     PowerAction action,
   ) async {
