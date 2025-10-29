@@ -17,5 +17,19 @@ class DiscoverProvider extends NestedNavigatorProvider {
   bool get loading => _loading;
   bool get hasError => _hasError;
 
-  Future<void> discover() async {}
+  Future<void> discover() async {
+    DeviceType? type = _controller.value.firstOrNull;
+
+    if (type == null) {
+      return;
+    }
+
+    _loading = true;
+    notifyListeners();
+
+    final result = await _service.discover(type);
+
+    _loading = false;
+    notifyListeners();
+  }
 }
