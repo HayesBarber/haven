@@ -11,7 +11,7 @@ class DiscoveryService {
     interceptors: HttpInterceptors.getInterceptors(addApiKey: true),
   );
 
-  Future<Result<List<DeviceConfig>, Exception>> discoverLifx(
+  Future<Result<DeviceDiscoveryResponse, Exception>> discover(
     DeviceType deviceType,
   ) async {
     try {
@@ -32,7 +32,7 @@ class DiscoveryService {
 
       final data = response.data!;
 
-      return Success(data.devices.toList());
+      return Success(data);
     } catch (e) {
       return Failure(Exception('Failed to discover Lifx: $e'));
     }
