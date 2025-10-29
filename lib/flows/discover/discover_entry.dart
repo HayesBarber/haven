@@ -62,31 +62,25 @@ class DiscoverEntry extends StatelessWidget {
 
     if (controllableDevices.isNotEmpty) {
       response.add(
-        Padding(
-          padding: Styles.tileGroupPadding,
-          child: FTileGroup(
-            label: Text('Controllable Devices'),
-            children: controllableDevices
-                .map((device) => FTile(title: Text(device.name)))
-                .toList(),
-          ),
-        ),
+        _buildDeviceGroup('Controllable Devices', controllableDevices),
       );
     }
 
     if (interfaceDevices.isNotEmpty) {
-      response.add(
-        Padding(
-          padding: Styles.tileGroupPadding,
-          child: FTileGroup(
-            label: Text('Interface Devices'),
-            children: interfaceDevices
-                .map((device) => FTile(title: Text(device.name)))
-                .toList(),
-          ),
-        ),
-      );
+      response.add(_buildDeviceGroup('Interface Devices', interfaceDevices));
     }
     return response;
+  }
+
+  Widget _buildDeviceGroup(String label, List devices) {
+    return Padding(
+      padding: Styles.tileGroupPadding,
+      child: FTileGroup(
+        label: Text(label),
+        children: devices
+            .map((device) => FTile(title: Text(device.name)))
+            .toList(),
+      ),
+    );
   }
 }
