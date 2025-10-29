@@ -49,7 +49,7 @@ class DiscoverEntry extends StatelessWidget {
   }
 
   List<Widget> _displayDiscoveryResponse(DiscoverProvider provider) {
-    if (provider.deviceDiscoveryResponse == null) {
+    if (provider.deviceDiscoveryResponse == null || provider.loading) {
       return [];
     }
     List<ControllableDevice> controllableDevices =
@@ -57,6 +57,35 @@ class DiscoverEntry extends StatelessWidget {
     List<InterfaceDevice> interfaceDevices =
         provider.deviceDiscoveryResponse?.interfaceDevices?.toList() ?? [];
 
-    return [];
+    List<Widget> response = [];
+
+    if (controllableDevices.isNotEmpty) {
+      response.add(
+        Padding(
+          padding: Styles.tileGroupPadding,
+          child: FTileGroup(
+            label: Text('Controllable Devices'),
+            children: controllableDevices
+                .map((device) => FTile(title: Text(device.name)))
+                .toList(),
+          ),
+        ),
+      );
+    }
+
+    if (interfaceDevices.isNotEmpty) {
+      response.add(
+        Padding(
+          padding: Styles.tileGroupPadding,
+          child: FTileGroup(
+            label: Text('Interface Devices'),
+            children: interfaceDevices
+                .map((device) => FTile(title: Text(device.name)))
+                .toList(),
+          ),
+        ),
+      );
+    }
+    return response;
   }
 }
