@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
  - [DeviceDiscoveryResponse](doc/DeviceDiscoveryResponse.md)
  - [DeviceReadResponse](doc/DeviceReadResponse.md)
  - [DeviceType](doc/DeviceType.md)
+ - [DiscoverEspRequest](doc/DiscoverEspRequest.md)
  - [EffectedDevicesResponse](doc/EffectedDevicesResponse.md)
  - [GetThemesResponse](doc/GetThemesResponse.md)
  - [GetUsersResponse](doc/GetUsersResponse.md)
