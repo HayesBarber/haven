@@ -29,6 +29,7 @@ export 'package:home_api_client/src/model/delete_user_request.dart';
 export 'package:home_api_client/src/model/device_discovery_response.dart';
 export 'package:home_api_client/src/model/device_read_response.dart';
 export 'package:home_api_client/src/model/device_type.dart';
+export 'package:home_api_client/src/model/discover_esp_request.dart';
 export 'package:home_api_client/src/model/effected_devices_response.dart';
 export 'package:home_api_client/src/model/get_themes_response.dart';
 export 'package:home_api_client/src/model/get_users_response.dart';

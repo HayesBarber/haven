@@ -23,9 +23,11 @@ class DiscoveryService {
       } else if (deviceType == DeviceType.lifx) {
         response = await api.discoverLifxDiscoveryDiscoverLifxPost();
       } else {
+        DiscoverEspRequestBuilder req = DiscoverEspRequestBuilder()
+          ..passcode = dotenv.get("ESP_DISCOVERY_PASSCODE")
+          ..port = dotenv.getInt("ESP_DISCOVERY_PORT");
         response = await api.discoverEspDiscoveryDiscoverEspPost(
-          passcode: dotenv.get("ESP_DISCOVERY_PASSCODE"),
-          port: dotenv.getInt("ESP_DISCOVERY_PORT"),
+          discoverEspRequest: req.build(),
         );
       }
       response.assertValid();

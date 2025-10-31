@@ -7,10 +7,10 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:home_api_client/src/api_util.dart';
 import 'package:home_api_client/src/model/checkin_request.dart';
 import 'package:home_api_client/src/model/checkin_response.dart';
 import 'package:home_api_client/src/model/device_discovery_response.dart';
+import 'package:home_api_client/src/model/discover_esp_request.dart';
 
 class DiscoveryApi {
 
@@ -119,8 +119,7 @@ class DiscoveryApi {
   /// 
   ///
   /// Parameters:
-  /// * [passcode] 
-  /// * [port] 
+  /// * [discoverEspRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -131,8 +130,7 @@ class DiscoveryApi {
   /// Returns a [Future] containing a [Response] with a [DeviceDiscoveryResponse] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<DeviceDiscoveryResponse>> discoverEspDiscoveryDiscoverEspPost({ 
-    required String passcode,
-    required int port,
+    required DiscoverEspRequest discoverEspRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -150,18 +148,32 @@ class DiscoveryApi {
         'secure': <Map<String, String>>[],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'passcode': encodeQueryParameter(_serializers, passcode, const FullType(String)),
-      r'port': encodeQueryParameter(_serializers, port, const FullType(int)),
-    };
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(DiscoverEspRequest);
+      _bodyData = _serializers.serialize(discoverEspRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
 
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

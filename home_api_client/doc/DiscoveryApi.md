@@ -57,7 +57,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **discoverEspDiscoveryDiscoverEspPost**
-> DeviceDiscoveryResponse discoverEspDiscoveryDiscoverEspPost(passcode, port)
+> DeviceDiscoveryResponse discoverEspDiscoveryDiscoverEspPost(discoverEspRequest)
 
 Discover Esp
 
@@ -66,11 +66,10 @@ Discover Esp
 import 'package:home_api_client/api.dart';
 
 final api = HomeApiClient().getDiscoveryApi();
-final String passcode = passcode_example; // String | 
-final int port = 56; // int | 
+final DiscoverEspRequest discoverEspRequest = ; // DiscoverEspRequest | 
 
 try {
-    final response = api.discoverEspDiscoveryDiscoverEspPost(passcode, port);
+    final response = api.discoverEspDiscoveryDiscoverEspPost(discoverEspRequest);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling DiscoveryApi->discoverEspDiscoveryDiscoverEspPost: $e\n');
@@ -81,8 +80,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **passcode** | **String**|  | 
- **port** | **int**|  | 
+ **discoverEspRequest** | [**DiscoverEspRequest**](DiscoverEspRequest.md)|  | 
 
 ### Return type
 
@@ -94,7 +92,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
