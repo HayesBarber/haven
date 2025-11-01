@@ -7,7 +7,13 @@ import 'package:home_api_client/home_api_client.dart';
 
 class DiscoveryService {
   final _client = HomeApiClient(
-    basePathOverride: dotenv.get('HOME_API_URL'),
+    dio: Dio(
+      BaseOptions(
+        baseUrl: dotenv.get('HOME_API_URL'),
+        connectTimeout: Duration(seconds: 5),
+        receiveTimeout: Duration(seconds: 60),
+      ),
+    ),
     interceptors: HttpInterceptors.getInterceptors(addApiKey: true),
   );
 
