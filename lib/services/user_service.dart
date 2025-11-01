@@ -27,4 +27,22 @@ class UserService {
       return Failure(Exception('Failed to get users: $e'));
     }
   }
+
+  Future<Result<List<String>, Exception>> deleteUser(String userId) async {
+    try {
+      final api = _client.getUsersApi();
+      final request = DeleteUserRequestBuilder()..name = userId;
+
+      final response = await api.deleteUserUsersDelete(
+        deleteUserRequest: request.build(),
+      );
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.users.toList());
+    } catch (e) {
+      return Failure(Exception('Failed to delete user: $e'));
+    }
+  }
 }

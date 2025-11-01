@@ -7,6 +7,7 @@ class UsersProvider extends NestedNavigatorProvider {
   bool _loading = false;
   bool _hasError = false;
   bool _refreshing = false;
+  bool _deleteError = false;
 
   UsersProvider({required super.navKey}) {
     _fetchUsers();
@@ -16,23 +17,36 @@ class UsersProvider extends NestedNavigatorProvider {
   bool get loading => _loading;
   bool get hasError => _hasError;
   bool get refreshing => _refreshing;
+  bool get deleteError => _deleteError;
 
-  Future<void> _fetchUsers() async {
+  Future<void> _performUserAction(
+    Future<Result<List<String>, Exception>> Function() action, {
+    bool isDelete = false,
+  }) async {
     _loading = true;
     notifyListeners();
 
-    final result = await UserService.I.getUsers();
+    final result = await action();
 
     switch (result) {
       case Success(value: final value):
         _users = value;
+        _deleteError = false;
         _hasError = false;
       case Failure():
-        _hasError = true;
+        if (isDelete) {
+          _deleteError = true;
+        } else {
+          _hasError = true;
+        }
     }
 
     _loading = false;
     notifyListeners();
+  }
+
+  Future<void> _fetchUsers() async {
+    await _performUserAction(() => UserService.I.getUsers());
   }
 
   Future<void> refresh() async {
@@ -43,5 +57,12 @@ class UsersProvider extends NestedNavigatorProvider {
 
     _refreshing = false;
     notifyListeners();
+  }
+
+  Future<void> deleteUser(String userName) async {
+    await _performUserAction(
+      () => UserService.I.deleteUser(userName),
+      isDelete: true,
+    );
   }
 }
