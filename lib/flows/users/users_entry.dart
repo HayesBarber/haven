@@ -59,6 +59,9 @@ class UsersEntry extends StatelessWidget {
         final confirmed = await showFDialog<bool>(
           context: context,
           builder: (context, style, animation) => FDialog(
+            style: (_) => style,
+            animation: animation,
+            direction: Axis.vertical,
             title: const Text('Delete User'),
             body: Text('Are you sure you want to delete "$userName"?'),
             actions: [
