@@ -44,4 +44,22 @@ class UsersProvider extends NestedNavigatorProvider {
     _refreshing = false;
     notifyListeners();
   }
+
+  Future<void> deleteUser(String userName) async {
+    _loading = true;
+    notifyListeners();
+
+    final result = await UserService.I.deleteUser(userName);
+
+    switch (result) {
+      case Success(value: final value):
+        _users = value;
+        _hasError = false;
+      case Failure():
+        _hasError = true;
+    }
+
+    _loading = false;
+    notifyListeners();
+  }
 }
