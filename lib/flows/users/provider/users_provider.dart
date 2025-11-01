@@ -34,8 +34,11 @@ class UsersProvider extends NestedNavigatorProvider {
         _deleteError = false;
         _hasError = false;
       case Failure():
-        _deleteError = true;
-        _hasError = true;
+        if (isDelete) {
+          _deleteError = true;
+        } else {
+          _hasError = true;
+        }
     }
 
     _loading = false;
