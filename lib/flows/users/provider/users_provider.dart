@@ -31,17 +31,11 @@ class UsersProvider extends NestedNavigatorProvider {
     switch (result) {
       case Success(value: final value):
         _users = value;
-        if (isDelete) {
-          _deleteError = false;
-        } else {
-          _hasError = false;
-        }
+        _deleteError = false;
+        _hasError = false;
       case Failure():
-        if (isDelete) {
-          _deleteError = true;
-        } else {
-          _hasError = true;
-        }
+        _deleteError = true;
+        _hasError = true;
     }
 
     _loading = false;
