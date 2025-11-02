@@ -5,10 +5,12 @@ import 'package:haven/flows/create_user/create_user_entry.dart';
 import 'package:haven/flows/create_user/provider/create_user_provider.dart';
 import 'package:haven/flows/discover/discover_entry.dart';
 import 'package:haven/flows/discover/provider/discover_provider.dart';
+import 'package:haven/flows/local_storage/local_storage_entry.dart';
+import 'package:haven/flows/local_storage/provider/local_storage_provider.dart';
 import 'package:haven/flows/users/provider/users_provider.dart';
 import 'package:haven/flows/users/users_entry.dart';
 
-enum Flows { createUser, createTheme, users, discover }
+enum Flows { createUser, createTheme, users, discover, localStorage }
 
 class FlowRegistry {
   static Future? startFlow(Flows flow) {
@@ -33,6 +35,11 @@ class FlowRegistry {
         return FlowStarter.start(
           providerBuilder: (key) => DiscoverProvider(navKey: key),
           childBuilder: (context) => DiscoverEntry(),
+        );
+      case Flows.localStorage:
+        return FlowStarter.start(
+          providerBuilder: (key) => LocalStorageProvider(navKey: key),
+          childBuilder: (context) => LocalStorageEntry(),
         );
     }
   }
