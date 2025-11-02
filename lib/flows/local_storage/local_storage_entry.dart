@@ -2,7 +2,6 @@ import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:forui/forui.dart';
-import 'package:forui/widgets/tile.dart';
 import 'package:haven/flows/local_storage/provider/local_storage_provider.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/scaffold_title.dart';
