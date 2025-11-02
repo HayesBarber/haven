@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:haven/utils/extensions.dart';
+import 'package:haven/utils/result.dart';
 
 enum StorageKey { username, keyPair, apiKey }
 
@@ -27,5 +29,14 @@ class LocalStorage extends ValueNotifier<MapEntry<StorageKey, String?>?> {
   Future<void> deleteAll() async {
     await _storage.deleteAll();
     value = null;
+  }
+
+  Future<Result<Map<String, String>, Exception>> readAll() async {
+    try {
+      final all = await _storage.readAll();
+      return Success(all.sortedByKey());
+    } catch (e) {
+      return Failure(Exception('Failed to read from local storage: $e'));
+    }
   }
 }

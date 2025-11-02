@@ -63,3 +63,12 @@ extension IterableExtension<E> on Iterable<E> {
     }
   }
 }
+
+extension SortedMap<K extends Comparable, V> on Map<K, V> {
+  Map<K, V> sortedByKey() {
+    final sortedEntries = entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
+
+    return Map<K, V>.fromEntries(sortedEntries);
+  }
+}
