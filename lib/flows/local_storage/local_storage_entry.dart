@@ -36,6 +36,10 @@ class LocalStorageEntry extends StatelessWidget {
   }
 
   FTile _buildStorageTile(String title, String value) {
-    return FTile(title: Text(title), subtitle: Text(value));
+    return FTile(
+      title: Text(title),
+      subtitle: Text(value),
+      suffix: Icon(Icons.copy),
+    );
   }
 }
