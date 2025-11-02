@@ -1,6 +1,8 @@
 import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/widgets/tile.dart';
 import 'package:haven/flows/local_storage/provider/local_storage_provider.dart';
+import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/scaffold_title.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +12,30 @@ class LocalStorageEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<LocalStorageProvider>(context);
 
+    final tileGroup = Padding(
+      padding: Styles.tileGroupPadding,
+      child: FTileGroup(
+        children:
+            provider.storageData?.entries
+                .map((e) => _buildStorageTile(e.key, e.value))
+                .toList() ??
+            [],
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(leading: BackButton(onPressed: () => Navigation.I.pop())),
       body: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        children: [ScaffoldTitle(title: 'Local Storage')],
+        children: [
+          ScaffoldTitle(title: 'Local Storage'),
+          tileGroup,
+        ],
       ),
     );
+  }
+
+  FTile _buildStorageTile(String title, String value) {
+    return FTile(title: Text(title), subtitle: Text(value));
   }
 }
