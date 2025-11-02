@@ -33,7 +33,9 @@ class LocalStorage extends ValueNotifier<MapEntry<StorageKey, String?>?> {
 
   Future<Result<Map<String, String>, Exception>> readAll() async {
     try {
-      final all = await _storage.readAll();
+      final all = (await _storage.readAll())
+        ..[StorageKey.keyPair.name] =
+            "\u00B7\u00B7\u00B7\u00B7\u00B7\u00B7\u00B7\u00B7\u00B7\u00B7";
       return Success(all.sortedByKey());
     } catch (e) {
       return Failure(Exception('Failed to read from local storage: $e'));
