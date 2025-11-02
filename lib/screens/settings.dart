@@ -45,7 +45,9 @@ class Settings extends StatelessWidget {
             title: Text('Local Storage'),
             prefix: Icon(Icons.phone_iphone),
             suffix: Icon(Icons.chevron_right),
-            onPress: () {},
+            onPress: () {
+              FlowRegistry.startFlow(Flows.localStorage);
+            },
           ),
         ],
       ),
