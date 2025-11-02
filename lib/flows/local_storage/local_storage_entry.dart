@@ -31,7 +31,7 @@ class LocalStorageEntry extends StatelessWidget {
       child: FTileGroup(
         children:
             provider.storageData?.entries
-                .map((e) => _buildStorageTile(e.key, e.value))
+                .map((e) => _buildStorageTile(e.key, e.value, provider))
                 .toList() ??
             [],
       ),
@@ -50,13 +50,22 @@ class LocalStorageEntry extends StatelessWidget {
     );
   }
 
-  FTile _buildStorageTile(String title, String value) {
+  FTile _buildStorageTile(
+    String title,
+    String value,
+    LocalStorageProvider provider,
+  ) {
+    final isCopied = provider.justCopiedKey == title;
     return FTile(
       title: Text(title),
       subtitle: Text(value),
-      suffix: Icon(Icons.copy),
+      suffix: Icon(
+        isCopied ? Icons.check : Icons.copy,
+        color: isCopied ? Colors.green : null,
+      ),
       onPress: () {
         Clipboard.setData(ClipboardData(text: value));
+        provider.markCopied(title);
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flowkit/flowkit.dart';
 import 'package:haven/services/local_storage.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
 
 class LocalStorageProvider extends NestedNavigatorProvider {
@@ -11,6 +12,8 @@ class LocalStorageProvider extends NestedNavigatorProvider {
   Map<String, String>? get storageData => _storageData;
   bool _loading = false;
   bool get loading => _loading;
+  String? _justCopiedKey;
+  String? get justCopiedKey => _justCopiedKey;
 
   Future<void> _init() async {
     _loading = true;
@@ -26,5 +29,16 @@ class LocalStorageProvider extends NestedNavigatorProvider {
 
     _loading = false;
     notifyListeners();
+  }
+
+  void markCopied(String key) {
+    _justCopiedKey = key;
+    notifyListeners();
+    Future.delayed(3.seconds, () {
+      if (_justCopiedKey == key) {
+        _justCopiedKey = null;
+        notifyListeners();
+      }
+    });
   }
 }
