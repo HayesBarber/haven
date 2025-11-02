@@ -12,6 +12,19 @@ class LocalStorageEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<LocalStorageProvider>(context);
 
+    final deleteStorage = Padding(
+      padding: Styles.tileGroupPadding,
+      child: FTileGroup(
+        children: [
+          FTile(
+            title: Text('Clear Storage'),
+            prefix: Icon(Icons.delete),
+            onPress: () {},
+          ),
+        ],
+      ),
+    );
+
     final tileGroup = Padding(
       padding: Styles.tileGroupPadding,
       child: FTileGroup(
@@ -29,6 +42,7 @@ class LocalStorageEntry extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         children: [
           ScaffoldTitle(title: 'Local Storage'),
+          deleteStorage,
           tileGroup,
         ],
       ),
