@@ -1,6 +1,7 @@
 import 'package:flowkit/flowkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forui/forui.dart';
 import 'package:forui/widgets/tile.dart';
 import 'package:haven/flows/local_storage/provider/local_storage_provider.dart';
 import 'package:haven/utils/styles.dart';
@@ -20,7 +21,37 @@ class LocalStorageEntry extends StatelessWidget {
           FTile(
             title: Text('Clear Storage'),
             prefix: Icon(Icons.delete),
-            onPress: () {},
+            onPress: () async {
+              final confirmed = await showFDialog<bool>(
+                context: context,
+                builder: (context, style, animation) => FDialog(
+                  style: (_) => style,
+                  animation: animation,
+                  direction: Axis.vertical,
+                  title: const Text('Clear Local Storage'),
+                  body: Text(
+                    'Are you sure? This will effectively delete your user.',
+                  ),
+                  actions: [
+                    FButton(
+                      style: FButtonStyle.outline(),
+                      onPress: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                    FButton(
+                      style: FButtonStyle.destructive(),
+                      onPress: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: const Text('Clear'),
+                    ),
+                  ],
+                ),
+              );
+              if (confirmed == true) {}
+            },
           ),
         ],
       ),
