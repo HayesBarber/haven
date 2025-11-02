@@ -49,7 +49,9 @@ class LocalStorageEntry extends StatelessWidget {
                   ],
                 ),
               );
-              if (confirmed == true) {}
+              if (confirmed == true) {
+                provider.clearStorage();
+              }
             },
           ),
         ],

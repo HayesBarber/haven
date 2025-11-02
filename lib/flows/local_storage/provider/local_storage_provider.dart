@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flowkit/flowkit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:haven/services/local_storage.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
@@ -40,5 +43,10 @@ class LocalStorageProvider extends NestedNavigatorProvider {
         notifyListeners();
       }
     });
+  }
+
+  Future<void> clearStorage() async {
+    await LocalStorage.I.deleteAll().pace(2000);
+    if (!kDebugMode) exit(0);
   }
 }
