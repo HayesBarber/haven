@@ -37,17 +37,29 @@ class DevicesEntry extends StatelessWidget {
       if (provider.selectedTab == DeviceTab.controllable) {
         for (var device in provider.controllableDevices) {
           final tiles = <FTile>[
-            FTile(title: Text('IP: ${device.ip}')),
-            FTile(title: Text('MAC: ${device.mac}')),
-            FTile(title: Text('Type: ${device.type}')),
-            FTile(title: Text('PowerState: ${device.powerState}')),
-            FTile(title: Text('Room: ${device.room ?? 'N/A'}')),
+            FTile(title: const Text('IP'), subtitle: Text(device.ip)),
+            FTile(title: const Text('MAC'), subtitle: Text(device.mac)),
+            FTile(title: const Text('Type'), subtitle: Text('${device.type}')),
             FTile(
-              title: Text(
-                'LastUpdated: ${device.lastUpdated != null ? dateFormat.format(device.lastUpdated!) : 'N/A'}',
+              title: const Text('PowerState'),
+              subtitle: Text('${device.powerState}'),
+            ),
+            FTile(
+              title: const Text('Room'),
+              subtitle: Text(device.room ?? 'N/A'),
+            ),
+            FTile(
+              title: const Text('LastUpdated'),
+              subtitle: Text(
+                device.lastUpdated != null
+                    ? dateFormat.format(device.lastUpdated!)
+                    : 'N/A',
               ),
             ),
-            FTile(title: Text('ESP Flag: ${device.espFlag}')),
+            FTile(
+              title: const Text('ESP Flag'),
+              subtitle: Text('${device.espFlag}'),
+            ),
           ];
           groups.add(
             Padding(
@@ -59,14 +71,20 @@ class DevicesEntry extends StatelessWidget {
       } else {
         for (var device in provider.interfaceDevices) {
           final tiles = <FTile>[
-            FTile(title: Text('IP: ${device.ip}')),
-            FTile(title: Text('MAC: ${device.mac}')),
+            FTile(title: const Text('IP'), subtitle: Text(device.ip)),
+            FTile(title: const Text('MAC'), subtitle: Text(device.mac)),
             FTile(
-              title: Text(
-                'LastUpdated: ${device.lastUpdated != null ? dateFormat.format(device.lastUpdated!) : 'N/A'}',
+              title: const Text('LastUpdated'),
+              subtitle: Text(
+                device.lastUpdated != null
+                    ? dateFormat.format(device.lastUpdated!)
+                    : 'N/A',
               ),
             ),
-            FTile(title: Text('ESP Flag: ${device.espFlag}')),
+            FTile(
+              title: const Text('ESP Flag'),
+              subtitle: Text('${device.espFlag}'),
+            ),
           ];
           groups.add(
             Padding(
