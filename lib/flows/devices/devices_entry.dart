@@ -2,6 +2,7 @@ import 'package:flowkit/flowkit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:haven/flows/devices/provider/devices_provider.dart';
+import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/refreshable_scaffold.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class DevicesEntry extends StatelessWidget {
         Padding(
           padding: Styles.tileGroupPadding,
           child: CupertinoSlidingSegmentedControl<DeviceTab>(
+            thumbColor: context.colorScheme.primary,
             groupValue: provider.selectedTab,
             onValueChanged: provider.onTabChanged,
             children: const <DeviceTab, Widget>{
