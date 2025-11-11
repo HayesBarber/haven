@@ -3,6 +3,8 @@ import 'package:haven/flows/create_theme/create_theme_entry.dart';
 import 'package:haven/flows/create_theme/provider/create_theme_provider.dart';
 import 'package:haven/flows/create_user/create_user_entry.dart';
 import 'package:haven/flows/create_user/provider/create_user_provider.dart';
+import 'package:haven/flows/devices/devices_entry.dart';
+import 'package:haven/flows/devices/provider/devices_provider.dart';
 import 'package:haven/flows/discover/discover_entry.dart';
 import 'package:haven/flows/discover/provider/discover_provider.dart';
 import 'package:haven/flows/local_storage/local_storage_entry.dart';
@@ -10,7 +12,7 @@ import 'package:haven/flows/local_storage/provider/local_storage_provider.dart';
 import 'package:haven/flows/users/provider/users_provider.dart';
 import 'package:haven/flows/users/users_entry.dart';
 
-enum Flows { createUser, createTheme, users, discover, localStorage }
+enum Flows { createUser, createTheme, users, discover, localStorage, devices }
 
 class FlowRegistry {
   static Future? startFlow(Flows flow) {
@@ -40,6 +42,11 @@ class FlowRegistry {
         return FlowStarter.start(
           providerBuilder: (key) => LocalStorageProvider(navKey: key),
           childBuilder: (context) => LocalStorageEntry(),
+        );
+      case Flows.devices:
+        return FlowStarter.start(
+          providerBuilder: (key) => DevicesProvider(navKey: key),
+          childBuilder: (context) => DevicesEntry(),
         );
     }
   }

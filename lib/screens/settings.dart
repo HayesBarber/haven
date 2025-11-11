@@ -39,7 +39,9 @@ class Settings extends StatelessWidget {
             title: Text('Devices'),
             prefix: Icon(Icons.group_work),
             suffix: Icon(Icons.chevron_right),
-            onPress: () {},
+            onPress: () {
+              FlowRegistry.startFlow(Flows.devices);
+            },
           ),
           FTile(
             title: Text('Local Storage'),
