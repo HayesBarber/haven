@@ -3,6 +3,8 @@ import 'package:haven/services/device_service.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
 
+enum DeviceTab { controllable, interface }
+
 class DevicesProvider extends NestedNavigatorProvider {
   DevicesProvider({required super.navKey}) {
     _fetchAll();
@@ -12,12 +14,23 @@ class DevicesProvider extends NestedNavigatorProvider {
   List<ControllableDevice> get controllableDevices => _controllableDevices;
   List<InterfaceDevice> _interfaceDevices = [];
   List<InterfaceDevice> get interfaceDevices => _interfaceDevices;
+  DeviceTab _selectedTab = DeviceTab.controllable;
+  DeviceTab get selectedTab => _selectedTab;
   bool _loading = false;
   bool get loading => _loading;
   bool _refreshing = false;
   bool get refreshing => _refreshing;
   bool _hasError = false;
   bool get hasError => _hasError;
+
+  void onTabChanged(DeviceTab? value) {
+    if (value == null) {
+      return;
+    }
+
+    _selectedTab = value;
+    notifyListeners();
+  }
 
   Future<void> _performDeviceAction(
     Future<Result<dynamic, Exception>> Function() action,
