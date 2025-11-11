@@ -13,21 +13,6 @@ class LightingService {
   static final LightingService _instance = LightingService._();
   static LightingService get I => _instance;
 
-  Future<Result<List<ControllableDevice>, Exception>> readDevices() async {
-    try {
-      final api = _client.getDeviceApi();
-
-      final response = await api.readAllDevicesDeviceReadGet();
-      response.assertValid();
-
-      final data = response.data!;
-
-      return Success(data.devices.toList());
-    } catch (e) {
-      return Failure(Exception('Failed to read devices: $e'));
-    }
-  }
-
   Future<Result<List<ControllableDevice>, Exception>> controlDevice(
     String name,
     PowerAction action,

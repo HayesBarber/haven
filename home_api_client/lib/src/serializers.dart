@@ -34,6 +34,7 @@ import 'package:home_api_client/src/model/health_request.dart';
 import 'package:home_api_client/src/model/health_response.dart';
 import 'package:home_api_client/src/model/health_state.dart';
 import 'package:home_api_client/src/model/interface_device.dart';
+import 'package:home_api_client/src/model/interface_device_read_response.dart';
 import 'package:home_api_client/src/model/power_action.dart';
 import 'package:home_api_client/src/model/power_state.dart';
 import 'package:home_api_client/src/model/validation_error.dart';
@@ -63,6 +64,7 @@ part 'serializers.g.dart';
   HealthResponse,
   HealthState,
   InterfaceDevice,
+  InterfaceDeviceReadResponse,
   PowerAction,
   PowerState,
   ValidationError,

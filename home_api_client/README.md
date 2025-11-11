@@ -65,7 +65,9 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*DeviceApi*](doc/DeviceApi.md) | [**deleteDeviceDeviceDeviceNameDelete**](doc/DeviceApi.md#deletedevicedevicedevicenamedelete) | **DELETE** /device/{device_name} | Delete Device
+[*DeviceApi*](doc/DeviceApi.md) | [**deleteInterfaceDeviceDeviceInterfaceDeviceNameDelete**](doc/DeviceApi.md#deleteinterfacedevicedeviceinterfacedevicenamedelete) | **DELETE** /device/interface/{device_name} | Delete Interface Device
 [*DeviceApi*](doc/DeviceApi.md) | [**readAllDevicesDeviceReadGet**](doc/DeviceApi.md#readalldevicesdevicereadget) | **GET** /device/read | Read All Devices
+[*DeviceApi*](doc/DeviceApi.md) | [**readAllInterfaceDevicesDeviceReadInterfaceGet**](doc/DeviceApi.md#readallinterfacedevicesdevicereadinterfaceget) | **GET** /device/read/interface | Read All Interface Devices
 [*DeviceApi*](doc/DeviceApi.md) | [**updateDeviceNameDeviceUpdateNamePatch**](doc/DeviceApi.md#updatedevicenamedeviceupdatenamepatch) | **PATCH** /device/update-name | Update Device Name
 [*DiscoveryApi*](doc/DiscoveryApi.md) | [**checkInDeviceDiscoveryCheckInPost**](doc/DiscoveryApi.md#checkindevicediscoverycheckinpost) | **POST** /discovery/check-in | Check In Device
 [*DiscoveryApi*](doc/DiscoveryApi.md) | [**discoverEspDiscoveryDiscoverEspPost**](doc/DiscoveryApi.md#discoverespdiscoverydiscoveresppost) | **POST** /discovery/discover/esp | Discover Esp
@@ -105,6 +107,7 @@ Class | Method | HTTP request | Description
  - [HealthResponse](doc/HealthResponse.md)
  - [HealthState](doc/HealthState.md)
  - [InterfaceDevice](doc/InterfaceDevice.md)
+ - [InterfaceDeviceReadResponse](doc/InterfaceDeviceReadResponse.md)
  - [PowerAction](doc/PowerAction.md)
  - [PowerState](doc/PowerState.md)
  - [ValidationError](doc/ValidationError.md)

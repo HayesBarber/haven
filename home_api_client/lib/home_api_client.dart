@@ -38,6 +38,7 @@ export 'package:home_api_client/src/model/health_request.dart';
 export 'package:home_api_client/src/model/health_response.dart';
 export 'package:home_api_client/src/model/health_state.dart';
 export 'package:home_api_client/src/model/interface_device.dart';
+export 'package:home_api_client/src/model/interface_device_read_response.dart';
 export 'package:home_api_client/src/model/power_action.dart';
 export 'package:home_api_client/src/model/power_state.dart';
 export 'package:home_api_client/src/model/validation_error.dart';

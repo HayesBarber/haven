@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:haven/services/device_service.dart';
 import 'package:haven/services/lighting_service.dart';
 import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/result.dart';
@@ -36,7 +37,7 @@ class LightingProvider extends ChangeNotifier {
   Future<void> _initAsync() async {
     _loading = true;
     notifyListeners();
-    final response = await LightingService.I.readDevices();
+    final response = await DeviceService.I.readControllableDevices();
 
     switch (response) {
       case Success(value: final devices):

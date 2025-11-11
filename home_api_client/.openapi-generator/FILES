@@ -24,6 +24,7 @@ doc/HealthRequest.md
 doc/HealthResponse.md
 doc/HealthState.md
 doc/InterfaceDevice.md
+doc/InterfaceDeviceReadResponse.md
 doc/LightingApi.md
 doc/PowerAction.md
 doc/PowerState.md
@@ -70,6 +71,7 @@ lib/src/model/health_response.dart
 lib/src/model/health_state.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/interface_device.dart
+lib/src/model/interface_device_read_response.dart
 lib/src/model/power_action.dart
 lib/src/model/power_state.dart
 lib/src/model/validation_error.dart
@@ -99,6 +101,7 @@ test/health_request_test.dart
 test/health_response_test.dart
 test/health_state_test.dart
 test/http_validation_error_test.dart
+test/interface_device_read_response_test.dart
 test/interface_device_test.dart
 test/lighting_api_test.dart
 test/power_action_test.dart

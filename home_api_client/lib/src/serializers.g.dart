@@ -27,6 +27,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(HealthResponse.serializer)
       ..add(HealthState.serializer)
       ..add(InterfaceDevice.serializer)
+      ..add(InterfaceDeviceReadResponse.serializer)
       ..add(PowerAction.serializer)
       ..add(PowerState.serializer)
       ..add(ValidationError.serializer)
@@ -41,6 +42,9 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ControllableDevice)]),
           () => ListBuilder<ControllableDevice>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(InterfaceDevice)]),
+          () => ListBuilder<InterfaceDevice>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(InterfaceDevice)]),
           () => ListBuilder<InterfaceDevice>())
