@@ -22,9 +22,22 @@ class DevicesEntry extends StatelessWidget {
       refreshing: provider.refreshing,
       onRefresh: provider.refresh,
       children: [
+        if (provider.hasError) _buildErrorMessage(context),
         _buildSegmentControl(context, provider),
         ..._buildDeviceGroups(context, provider),
       ],
+    );
+  }
+
+  Widget _buildErrorMessage(BuildContext context) {
+    return Padding(
+      padding: Styles.tileGroupPadding,
+      child: Text(
+        'Error fetching devices',
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: context.colorScheme.error,
+        ),
+      ),
     );
   }
 
