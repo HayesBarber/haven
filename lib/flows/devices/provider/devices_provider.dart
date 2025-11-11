@@ -44,8 +44,10 @@ class DevicesProvider extends NestedNavigatorProvider {
       case Success(value: final value):
         if (value is List<ControllableDevice>) {
           _controllableDevices = value;
+          _controllableDevices.sort((a, b) => a.name.compareTo(b.name));
         } else if (value is List<InterfaceDevice>) {
           _interfaceDevices = value;
+          _interfaceDevices.sort((a, b) => a.name.compareTo(b.name));
         }
         _hasError = false;
       case Failure():
