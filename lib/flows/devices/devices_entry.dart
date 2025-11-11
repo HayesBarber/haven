@@ -7,7 +7,6 @@ import 'package:haven/utils/extensions.dart';
 import 'package:haven/utils/styles.dart';
 import 'package:haven/widgets/refreshable_scaffold.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class DevicesEntry extends StatelessWidget {
   const DevicesEntry({super.key});
@@ -32,7 +31,6 @@ class DevicesEntry extends StatelessWidget {
 
     List<Widget> buildDeviceGroups() {
       final List<Widget> groups = [];
-      final dateFormat = DateFormat.yMd().add_jms();
 
       if (provider.selectedTab == DeviceTab.controllable) {
         for (var device in provider.controllableDevices) {
@@ -52,7 +50,7 @@ class DevicesEntry extends StatelessWidget {
               title: const Text('LastUpdated'),
               subtitle: Text(
                 device.lastUpdated != null
-                    ? dateFormat.format(device.lastUpdated!)
+                    ? provider.dateFormat.format(device.lastUpdated!)
                     : 'N/A',
               ),
             ),
@@ -77,7 +75,7 @@ class DevicesEntry extends StatelessWidget {
               title: const Text('LastUpdated'),
               subtitle: Text(
                 device.lastUpdated != null
-                    ? dateFormat.format(device.lastUpdated!)
+                    ? provider.dateFormat.format(device.lastUpdated!)
                     : 'N/A',
               ),
             ),

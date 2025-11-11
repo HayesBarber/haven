@@ -2,6 +2,7 @@ import 'package:flowkit/flowkit.dart';
 import 'package:haven/services/device_service.dart';
 import 'package:haven/utils/result.dart';
 import 'package:home_api_client/home_api_client.dart';
+import 'package:intl/intl.dart';
 
 enum DeviceTab { controllable, interface }
 
@@ -22,6 +23,7 @@ class DevicesProvider extends NestedNavigatorProvider {
   bool get refreshing => _refreshing;
   bool _hasError = false;
   bool get hasError => _hasError;
+  final dateFormat = DateFormat.yMd().add_jms();
 
   void onTabChanged(DeviceTab? value) {
     if (value == null) {
