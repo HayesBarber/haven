@@ -27,14 +27,8 @@ class DevicesEntry extends StatelessWidget {
             groupValue: provider.selectedTab,
             onValueChanged: provider.onTabChanged,
             children: const <DeviceTab, Widget>{
-              DeviceTab.controllable: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('Controllable'),
-              ),
-              DeviceTab.interface: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('Interface'),
-              ),
+              DeviceTab.controllable: Text('Controllable'),
+              DeviceTab.interface: Text('Interface'),
             },
           ),
         ),
