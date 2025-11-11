@@ -25,7 +25,24 @@ class DeviceService {
 
       return Success(data.devices.toList());
     } catch (e) {
-      return Failure(Exception('Failed to read devices: $e'));
+      return Failure(Exception('Failed to read controllable devices: $e'));
+    }
+  }
+
+  Future<Result<List<InterfaceDevice>, Exception>>
+  readInterfaceDevices() async {
+    try {
+      final api = _client.getDeviceApi();
+
+      final response = await api
+          .readAllInterfaceDevicesDeviceReadInterfaceGet();
+      response.assertValid();
+
+      final data = response.data!;
+
+      return Success(data.devices.toList());
+    } catch (e) {
+      return Failure(Exception('Failed to read interface devices: $e'));
     }
   }
 }
